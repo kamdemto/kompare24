@@ -29,7 +29,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-primary text-primary-foreground">
+    <footer className="hidden md:block bg-primary text-primary-foreground">
       {/* Main Footer Content */}
       <div className="container px-4 py-8">
         {/* Logo and Description */}
