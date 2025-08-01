@@ -13,6 +13,8 @@ import AProposPage from "./pages/AProposPage";
 import ContactPage from "./pages/ContactPage";
 import DevenirAnnonceurPage from "./pages/DevenirAnnonceurPage";
 import CatalogDetailPage from "./pages/CatalogDetailPage";
+import EntreprisePage from "./pages/EntreprisePage";
+import EntreprisesPage from "./pages/EntreprisesPage";
 import Navigation from "./components/ui/navigation";
 import Footer from "./components/ui/footer";
 import NotFound from "./pages/NotFound";
@@ -39,6 +41,8 @@ const App = () => (
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/devenir-annonceur" element={<DevenirAnnonceurPage />} />
               <Route path="/catalogue/:id" element={<CatalogDetailPage />} />
+              <Route path="/entreprise/:slug" element={<EntreprisePage />} />
+              <Route path="/entreprises" element={<EntreprisesPage />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
