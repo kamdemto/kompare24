@@ -42,9 +42,9 @@ const Home = () => {
       gradient: 'bg-gradient-to-br from-green-500 to-teal-600'
     },
     {
-      title: 'Immobilier',
-      description: 'Trouvez les meilleures offres immobilières : ventes, locations et terrains',
-      href: '/categories/immobilier',
+      title: 'Aménagement',
+      description: 'Équipements, électroménager, mobilier de cuisine et bureau à prix réduits',
+      href: '/categories/amenagement',
       icon: HomeIcon,
       catalogCount: 18,
       gradient: 'bg-gradient-to-br from-orange-500 to-red-600'

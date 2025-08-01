@@ -6,13 +6,13 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import CatalogCard from '@/components/ui/catalog-card';
 
-const ImmobilierPage = () => {
-  // Mock data pour les catalogues immobilier
+const AmenagementPage = () => {
+  // Mock data pour les catalogues aménagement
   const catalogs = [
     {
       id: '1',
-      title: 'Appartements neufs Douala',
-      company: 'Promovente',
+      title: 'Électroménager moderne',
+      company: 'Samsung',
       validUntil: '31/03/2025',
       imageUrl: '/placeholder.svg',
       viewCount: 1850,
@@ -21,8 +21,8 @@ const ImmobilierPage = () => {
     },
     {
       id: '2',
-      title: 'Villas de luxe Yaoundé',
-      company: 'Century 21',
+      title: 'Mobilier de cuisine',
+      company: 'IKEA',
       validUntil: '28/02/2025',
       imageUrl: '/placeholder.svg',
       viewCount: 1240,
@@ -30,8 +30,8 @@ const ImmobilierPage = () => {
     },
     {
       id: '3',
-      title: 'Terrains constructibles',
-      company: 'Tiko Real Estate',
+      title: 'Équipements de bureau',
+      company: 'Bureau Vallée',
       validUntil: '15/02/2025',
       imageUrl: '/placeholder.svg',
       viewCount: 987,
@@ -39,8 +39,8 @@ const ImmobilierPage = () => {
     },
     {
       id: '4',
-      title: 'Bureaux à louer centre-ville',
-      company: 'SOGEA',
+      title: 'Décoration d\'intérieur',
+      company: 'Alinéa',
       validUntil: '20/02/2025',
       imageUrl: '/placeholder.svg',
       viewCount: 756,
@@ -48,8 +48,8 @@ const ImmobilierPage = () => {
     },
     {
       id: '5',
-      title: 'Résidences sécurisées',
-      company: 'Habitat Cameroun',
+      title: 'Appareils ménagers',
+      company: 'Whirlpool',
       validUntil: '10/03/2025',
       imageUrl: '/placeholder.svg',
       viewCount: 623,
@@ -57,8 +57,8 @@ const ImmobilierPage = () => {
     },
     {
       id: '6',
-      title: 'Investissement locatif',
-      company: 'Immobilier Plus',
+      title: 'Solutions de rangement',
+      company: 'Leroy Merlin',
       validUntil: '25/02/2025',
       imageUrl: '/placeholder.svg',
       viewCount: 445,
@@ -74,10 +74,10 @@ const ImmobilierPage = () => {
           <div className="max-w-4xl mx-auto text-center">
             <div className="flex items-center justify-center mb-4">
               <Home className="h-12 w-12 mr-4" />
-              <h1 className="text-4xl md:text-5xl font-bold">Immobilier</h1>
+              <h1 className="text-4xl md:text-5xl font-bold">Aménagement</h1>
             </div>
             <p className="text-xl text-white/90 mb-8">
-              Découvrez les meilleures offres immobilières : ventes, locations, terrains et investissements
+              Découvrez les meilleures offres d'équipements, électroménager, mobilier et décoration
             </p>
             
             {/* Search & Filters */}
@@ -86,21 +86,22 @@ const ImmobilierPage = () => {
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
                   <Input
-                    placeholder="Rechercher en immobilier..."
+                    placeholder="Rechercher en aménagement..."
                     className="pl-10 h-12 text-foreground"
                   />
                 </div>
                 
                 <Select>
                   <SelectTrigger className="h-12">
-                    <SelectValue placeholder="Type" />
+                    <SelectValue placeholder="Catégorie" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">Tous les types</SelectItem>
-                    <SelectItem value="vente">Vente</SelectItem>
-                    <SelectItem value="location">Location</SelectItem>
-                    <SelectItem value="terrain">Terrain</SelectItem>
-                    <SelectItem value="commercial">Commercial</SelectItem>
+                    <SelectItem value="all">Toutes les catégories</SelectItem>
+                    <SelectItem value="electromenager">Électroménager</SelectItem>
+                    <SelectItem value="mobilier">Mobilier</SelectItem>
+                    <SelectItem value="decoration">Décoration</SelectItem>
+                    <SelectItem value="bureau">Bureau</SelectItem>
+                    <SelectItem value="cuisine">Cuisine</SelectItem>
                   </SelectContent>
                 </Select>
                 
@@ -133,7 +134,7 @@ const ImmobilierPage = () => {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
             <div>
               <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
-                Catalogues Immobilier
+                Catalogues Aménagement
               </h2>
               <p className="text-muted-foreground">
                 {catalogs.length} catalogues disponibles
@@ -151,7 +152,7 @@ const ImmobilierPage = () => {
                   <SelectItem value="popular">Plus populaires</SelectItem>
                   <SelectItem value="price-low">Prix croissant</SelectItem>
                   <SelectItem value="price-high">Prix décroissant</SelectItem>
-                  <SelectItem value="company">Par agence</SelectItem>
+                  <SelectItem value="brand">Par marque</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -173,25 +174,25 @@ const ImmobilierPage = () => {
         </div>
       </section>
 
-      {/* Popular Agencies */}
+      {/* Popular Brands */}
       <section className="py-16 bg-muted/50">
         <div className="container px-4">
           <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-8">
-            Agences Immobilières Populaires
+            Marques Populaires
           </h2>
           
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-            {['Promovente', 'Century 21', 'Tiko Real Estate', 'SOGEA', 'Habitat Cameroun', 'Immobilier Plus'].map((agency) => (
+            {['Samsung', 'IKEA', 'Bureau Vallée', 'Alinéa', 'Whirlpool', 'Leroy Merlin'].map((brand) => (
               <Link
-                key={agency}
-                to={`/entreprise/${agency.toLowerCase().replace(/\s+/g, '-')}`}
+                key={brand}
+                to={`/entreprise/${brand.toLowerCase().replace(/\s+/g, '-')}`}
                 className="group bg-white rounded-xl p-6 text-center hover:shadow-elegant transition-all duration-300 hover:-translate-y-1"
               >
                 <div className="h-16 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-lg mb-4 flex items-center justify-center">
                   <Home className="h-8 w-8 text-primary" />
                 </div>
                 <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors text-sm">
-                  {agency}
+                  {brand}
                 </h3>
               </Link>
             ))}
@@ -203,10 +204,10 @@ const ImmobilierPage = () => {
       <section className="py-16 bg-gradient-secondary text-secondary-foreground">
         <div className="container px-4 text-center">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">
-            Vous êtes une agence immobilière ?
+            Vous êtes un équipementier ?
           </h2>
           <p className="text-lg mb-8 opacity-90">
-            Rejoignez Kompar24 et diffusez vos offres immobilières auprès de milliers de clients potentiels
+            Rejoignez Kompar24 et diffusez vos catalogues d'équipements auprès de milliers de clients potentiels
           </p>
           <Button 
             variant="outline" 
@@ -221,4 +222,4 @@ const ImmobilierPage = () => {
   );
 };
 
-export default ImmobilierPage;
+export default AmenagementPage;
