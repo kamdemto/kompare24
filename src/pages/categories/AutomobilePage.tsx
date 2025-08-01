@@ -16,6 +16,7 @@ const AutomobilePage = () => {
       validUntil: '20/01/2025',
       imageUrl: catalogAuto,
       viewCount: 567,
+      category: 'Véhicules Neufs',
       isNew: true,
       aspectRatio: '9:16' as const
     },
@@ -26,6 +27,7 @@ const AutomobilePage = () => {
       validUntil: '25/01/2025',
       imageUrl: catalogAuto,
       viewCount: 432,
+      category: 'Pièces Détachées',
       aspectRatio: '9:16' as const
     },
     {
@@ -35,6 +37,7 @@ const AutomobilePage = () => {
       validUntil: '31/01/2025',
       imageUrl: catalogAuto,
       viewCount: 289,
+      category: 'Services Auto',
       aspectRatio: '9:16' as const
     }
   ];

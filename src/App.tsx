@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
+import CataloguesPage from "./pages/CataloguesPage";
 import SupermarchesPage from "./pages/categories/SupermarchesPage";
 import SportModePage from "./pages/categories/SportModePage";
 import AutomobilePage from "./pages/categories/AutomobilePage";
@@ -34,6 +35,7 @@ const App = () => (
           <main className="flex-1 pb-16 lg:pb-0">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/catalogues" element={<CataloguesPage />} />
               <Route path="/categories/supermarches" element={<SupermarchesPage />} />
               <Route path="/categories/sport-mode" element={<SportModePage />} />
               <Route path="/categories/automobile" element={<AutomobilePage />} />

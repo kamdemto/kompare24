@@ -16,6 +16,7 @@ const SportModePage = () => {
       validUntil: '15/01/2025',
       imageUrl: catalogSport,
       viewCount: 890,
+      category: 'Équipements Sport',
       isNew: true,
       aspectRatio: '9:16' as const
     },
@@ -26,6 +27,7 @@ const SportModePage = () => {
       validUntil: '20/02/2025',
       imageUrl: catalogSport,
       viewCount: 1456,
+      category: 'Mode Femme',
       aspectRatio: '9:16' as const
     },
     {
@@ -35,6 +37,7 @@ const SportModePage = () => {
       validUntil: '28/01/2025',
       imageUrl: catalogSport,
       viewCount: 678,
+      category: 'Chaussures Sport',
       aspectRatio: '9:16' as const
     },
     {
@@ -44,6 +47,7 @@ const SportModePage = () => {
       validUntil: '31/01/2025',
       imageUrl: catalogSport,
       viewCount: 543,
+      category: 'Mode Homme',
       aspectRatio: '9:16' as const
     }
   ];
