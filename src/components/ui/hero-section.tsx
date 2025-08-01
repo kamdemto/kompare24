@@ -28,10 +28,10 @@ const HeroSection = () => {
           </div>
 
           {/* Search Form */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-2xl max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-2xl max-w-5xl mx-auto">
+            <div className="flex flex-col lg:flex-row gap-4">
               {/* Search Input */}
-              <div className="md:col-span-2 relative">
+              <div className="flex-1 relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
                 <Input
                   placeholder="Rechercher par mots-clés..."
@@ -41,7 +41,7 @@ const HeroSection = () => {
 
               {/* Category Filter */}
               <Select>
-                <SelectTrigger className="h-12 bg-white border-2 border-transparent focus:border-secondary text-foreground">
+                <SelectTrigger className="h-12 w-full lg:w-48 bg-white border-2 border-transparent focus:border-secondary text-foreground">
                   <Filter className="h-4 w-4 mr-2" />
                   <SelectValue placeholder="Catégorie" />
                 </SelectTrigger>
@@ -54,11 +54,26 @@ const HeroSection = () => {
                 </SelectContent>
               </Select>
 
+              {/* Country Filter */}
+              <Select>
+                <SelectTrigger className="h-12 w-full lg:w-48 bg-white border-2 border-transparent focus:border-secondary text-foreground">
+                  <MapPin className="h-4 w-4 mr-2" />
+                  <SelectValue placeholder="Pays" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Tous les pays</SelectItem>
+                  <SelectItem value="cameroun">Cameroun</SelectItem>
+                  <SelectItem value="france">France</SelectItem>
+                  <SelectItem value="nigeria">Nigeria</SelectItem>
+                  <SelectItem value="allemagne">Allemagne</SelectItem>
+                </SelectContent>
+              </Select>
+
               {/* Location Filter */}
               <Select>
-                <SelectTrigger className="h-12 bg-white border-2 border-transparent focus:border-secondary text-foreground">
+                <SelectTrigger className="h-12 w-full lg:w-48 bg-white border-2 border-transparent focus:border-secondary text-foreground">
                   <MapPin className="h-4 w-4 mr-2" />
-                  <SelectValue placeholder="Localisation" />
+                  <SelectValue placeholder="Ville" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">Toutes les villes</SelectItem>
@@ -68,14 +83,15 @@ const HeroSection = () => {
                   <SelectItem value="bamenda">Bamenda</SelectItem>
                 </SelectContent>
               </Select>
-            </div>
 
-            <Button 
-              className="w-full md:w-auto mt-6 h-12 px-8 bg-gradient-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold"
-            >
-              <Search className="h-5 w-5 mr-2" />
-              Rechercher des promotions
-            </Button>
+              {/* Search Button */}
+              <Button 
+                className="h-12 px-8 bg-gradient-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold whitespace-nowrap"
+              >
+                <Search className="h-5 w-5 mr-2" />
+                Rechercher
+              </Button>
+            </div>
           </div>
 
           {/* Stats or Features */}
