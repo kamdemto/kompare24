@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Search, User, ShoppingBag, Car, Star, Home, Info, Phone, Briefcase, LogIn } from 'lucide-react';
 import { Button } from './button';
 import { Input } from './input';
-import { Sheet, SheetContent, SheetTrigger } from './sheet';
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from './sheet';
 
 const Navigation = () => {
   const location = useLocation();
@@ -76,27 +76,8 @@ const Navigation = () => {
             </div>
           </nav>
 
-          {/* Search & CTA */}
+          {/* CTA */}
           <div className="flex items-center space-x-4">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsSearchOpen(!isSearchOpen)}
-              className="lg:hidden"
-            >
-              <Search className="h-5 w-5" />
-            </Button>
-
-            {/* Desktop Search */}
-            <div className="hidden lg:flex items-center space-x-2">
-              <Input
-                placeholder="Rechercher des catalogues..."
-                className="w-64"
-              />
-              <Button size="icon" variant="secondary">
-                <Search className="h-4 w-4" />
-              </Button>
-            </div>
 
             <Button asChild variant="outline" className="hidden md:flex">
               <Link to="/connexion">
@@ -121,14 +102,6 @@ const Navigation = () => {
               </SheetTrigger>
               <SheetContent side="right" className="w-80">
                 <div className="flex flex-col space-y-6 mt-6">
-                  {/* Mobile Search */}
-                  <div className="space-y-2">
-                    <Input placeholder="Rechercher des catalogues..." />
-                    <Button className="w-full" variant="secondary">
-                      <Search className="h-4 w-4 mr-2" />
-                      Rechercher
-                    </Button>
-                  </div>
 
                   {/* Navigation Links */}
                   <nav className="space-y-4">
@@ -180,22 +153,11 @@ const Navigation = () => {
           </div>
         </div>
 
-        {/* Mobile Search Bar */}
-        {isSearchOpen && (
-          <div className="lg:hidden border-t bg-background p-4">
-            <div className="flex space-x-2">
-              <Input placeholder="Rechercher des catalogues..." className="flex-1" />
-              <Button size="icon" variant="secondary">
-                <Search className="h-4 w-4" />
-              </Button>
-            </div>
-          </div>
-        )}
       </header>
 
       {/* Mobile Bottom Navigation */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-background border-t">
-        <div className="grid grid-cols-5 gap-1">
+        <div className="grid grid-cols-4 gap-1">
           <Link
             to="/"
             className={`flex flex-col items-center justify-center py-2 px-1 transition-colors ${
@@ -206,7 +168,7 @@ const Navigation = () => {
             <span className="text-xs mt-1">Accueil</span>
           </Link>
           
-          {categories.map((category) => (
+          {categories.slice(0, 2).map((category) => (
             <Link
               key={category.href}
               to={category.href}
@@ -220,6 +182,34 @@ const Navigation = () => {
               </span>
             </Link>
           ))}
+
+          {/* Menu hamburger pour les autres catégories */}
+          <Sheet>
+            <SheetTrigger asChild>
+              <button className="flex flex-col items-center justify-center py-2 px-1 text-muted-foreground">
+                <Menu className="h-5 w-5" />
+                <span className="text-xs mt-1">Plus</span>
+              </button>
+            </SheetTrigger>
+            <SheetContent side="bottom" className="h-80">
+              <div className="flex flex-col space-y-4 mt-6">
+                <h3 className="font-semibold text-foreground text-center">Toutes les catégories</h3>
+                <div className="grid grid-cols-2 gap-4">
+                  {categories.slice(2).map((category) => (
+                    <SheetClose asChild key={category.href}>
+                      <Link
+                        to={category.href}
+                        className="flex items-center space-x-2 text-muted-foreground hover:text-primary transition-colors p-3 rounded-lg hover:bg-muted"
+                      >
+                        <category.icon className="h-5 w-5" />
+                        <span>{category.label}</span>
+                      </Link>
+                    </SheetClose>
+                  ))}
+                </div>
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
     </>
