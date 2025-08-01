@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Search, User, ShoppingBag, Car, Star, Home, Info, Phone, Briefcase } from 'lucide-react';
+import { Menu, X, Search, User, ShoppingBag, Car, Star, Home, Info, Phone, Briefcase, LogIn } from 'lucide-react';
 import { Button } from './button';
 import { Input } from './input';
 import { Sheet, SheetContent, SheetTrigger } from './sheet';
@@ -96,6 +96,13 @@ const Navigation = () => {
               </Button>
             </div>
 
+            <Button asChild variant="outline" className="hidden lg:flex">
+              <Link to="/connexion">
+                <LogIn className="h-4 w-4 mr-2" />
+                Connexion
+              </Link>
+            </Button>
+
             <Button asChild className="hidden lg:flex bg-gradient-secondary hover:bg-secondary/90">
               <Link to="/devenir-annonceur">
                 <Briefcase className="h-4 w-4 mr-2" />
@@ -150,12 +157,21 @@ const Navigation = () => {
                     ))}
                   </div>
 
-                  <Button asChild className="w-full bg-gradient-secondary">
-                    <Link to="/devenir-annonceur">
-                      <Briefcase className="h-4 w-4 mr-2" />
-                      Devenir Annonceur
-                    </Link>
-                  </Button>
+                  <div className="space-y-2">
+                    <Button asChild variant="outline" className="w-full">
+                      <Link to="/connexion">
+                        <LogIn className="h-4 w-4 mr-2" />
+                        Connexion
+                      </Link>
+                    </Button>
+                    
+                    <Button asChild className="w-full bg-gradient-secondary">
+                      <Link to="/devenir-annonceur">
+                        <Briefcase className="h-4 w-4 mr-2" />
+                        Devenir Annonceur
+                      </Link>
+                    </Button>
+                  </div>
                 </div>
               </SheetContent>
             </Sheet>

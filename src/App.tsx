@@ -15,6 +15,8 @@ import DevenirAnnonceurPage from "./pages/DevenirAnnonceurPage";
 import CatalogDetailPage from "./pages/CatalogDetailPage";
 import EntreprisePage from "./pages/EntreprisePage";
 import EntreprisesPage from "./pages/EntreprisesPage";
+import ConnexionPage from "./pages/ConnexionPage";
+import DashboardPage from "./pages/DashboardPage";
 import Navigation from "./components/ui/navigation";
 import Footer from "./components/ui/footer";
 import NotFound from "./pages/NotFound";
@@ -43,6 +45,8 @@ const App = () => (
               <Route path="/catalogue/:id" element={<CatalogDetailPage />} />
               <Route path="/entreprise/:slug" element={<EntreprisePage />} />
               <Route path="/entreprises" element={<EntreprisesPage />} />
+              <Route path="/connexion" element={<ConnexionPage />} />
+              <Route path="/dashboard" element={<DashboardPage />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
