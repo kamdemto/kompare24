@@ -32,13 +32,8 @@ const Footer = () => {
     <footer className="hidden md:block bg-primary text-primary-foreground">
       {/* Main Footer Content */}
       <div className="container px-4 py-8">
-        {/* Logo and Description */}
+        {/* Description */}
         <div className="text-center mb-8">
-          <img 
-            src="/lovable-uploads/27ba9664-c45a-4160-8694-d81796df0589.png" 
-            alt="Kompar24" 
-            className="h-8 w-auto object-contain brightness-0 invert mx-auto mb-4"
-          />
           <p className="text-primary-foreground/80 text-sm max-w-2xl mx-auto">
             Kompar24 est la plateforme de référence pour découvrir les meilleures promotions 
             et catalogues de vos enseignes préférées au Cameroun.
