@@ -24,6 +24,7 @@ const Navigation = () => {
     { label: 'Supermarchés', href: '/categories/supermarches', icon: ShoppingBag },
     { label: 'Sport & Mode', href: '/categories/sport-mode', icon: User },
     { label: 'Automobile', href: '/categories/automobile', icon: Car },
+    { label: 'Immobilier', href: '/categories/immobilier', icon: Home },
     { label: 'Sassayé', href: '/categories/sassaye', icon: Star },
   ];
 

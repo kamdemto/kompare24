@@ -50,6 +50,7 @@ const HeroSection = () => {
                   <SelectItem value="supermarches">Supermarchés</SelectItem>
                   <SelectItem value="sport-mode">Sport & Mode</SelectItem>
                   <SelectItem value="automobile">Automobile</SelectItem>
+                  <SelectItem value="immobilier">Immobilier</SelectItem>
                   <SelectItem value="sassaye">Sassayé</SelectItem>
                 </SelectContent>
               </Select>

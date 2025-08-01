@@ -8,6 +8,7 @@ import CataloguesPage from "./pages/CataloguesPage";
 import SupermarchesPage from "./pages/categories/SupermarchesPage";
 import SportModePage from "./pages/categories/SportModePage";
 import AutomobilePage from "./pages/categories/AutomobilePage";
+import ImmobilierPage from "./pages/categories/ImmobilierPage";
 import SassayePage from "./pages/categories/SassayePage";
 import CommentCaMarchePage from "./pages/CommentCaMarchePage";
 import AProposPage from "./pages/AProposPage";
@@ -39,6 +40,7 @@ const App = () => (
               <Route path="/categories/supermarches" element={<SupermarchesPage />} />
               <Route path="/categories/sport-mode" element={<SportModePage />} />
               <Route path="/categories/automobile" element={<AutomobilePage />} />
+              <Route path="/categories/immobilier" element={<ImmobilierPage />} />
               <Route path="/categories/sassaye" element={<SassayePage />} />
               <Route path="/comment-ca-marche" element={<CommentCaMarchePage />} />
               <Route path="/a-propos" element={<AProposPage />} />
