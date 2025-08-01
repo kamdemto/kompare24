@@ -13,6 +13,7 @@ import catalogPremium from '@/assets/catalog-premium-9-16.jpg';
 const CataloguesPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedCountry, setSelectedCountry] = useState('all');
   const [sortBy, setSortBy] = useState('recent');
 
   const allCatalogs = [
@@ -24,6 +25,7 @@ const CataloguesPage = () => {
       imageUrl: catalogSupermarket,
       viewCount: 1250,
       category: 'Alimentation',
+      country: 'Cameroun',
       isNew: true
     },
     {
@@ -33,7 +35,8 @@ const CataloguesPage = () => {
       validUntil: '15/01/2025',
       imageUrl: catalogSport,
       viewCount: 890,
-      category: 'Sport'
+      category: 'Sport',
+      country: 'France'
     },
     {
       id: '3',
@@ -42,7 +45,8 @@ const CataloguesPage = () => {
       validUntil: '20/01/2025',
       imageUrl: catalogAuto,
       viewCount: 567,
-      category: 'Automobile'
+      category: 'Automobile',
+      country: 'Cameroun'
     },
     {
       id: '4',
@@ -52,6 +56,7 @@ const CataloguesPage = () => {
       imageUrl: catalogPremium,
       viewCount: 2150,
       category: 'Mode Luxe',
+      country: 'France',
       isPremium: true
     },
     {
@@ -61,7 +66,8 @@ const CataloguesPage = () => {
       validUntil: '10/02/2025',
       imageUrl: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=400&h=600',
       viewCount: 1876,
-      category: 'Électronique'
+      category: 'Électronique',
+      country: 'Nigeria'
     },
     {
       id: '6',
@@ -70,7 +76,8 @@ const CataloguesPage = () => {
       validUntil: '05/02/2025',
       imageUrl: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=400&h=600',
       viewCount: 1234,
-      category: 'Mode'
+      category: 'Mode',
+      country: 'Allemagne'
     },
     {
       id: '7',
@@ -79,7 +86,8 @@ const CataloguesPage = () => {
       validUntil: '15/02/2025',
       imageUrl: 'https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=400&h=600',
       viewCount: 756,
-      category: 'Voyage'
+      category: 'Voyage',
+      country: 'France'
     },
     {
       id: '8',
@@ -88,7 +96,8 @@ const CataloguesPage = () => {
       validUntil: '20/02/2025',
       imageUrl: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&h=600',
       viewCount: 1345,
-      category: 'Maison'
+      category: 'Maison',
+      country: 'Cameroun'
     }
   ];
 
@@ -102,12 +111,22 @@ const CataloguesPage = () => {
     { value: 'voyage', label: 'Voyage & Loisirs' }
   ];
 
+  const countries = [
+    { value: 'all', label: 'Tous les pays' },
+    { value: 'cameroun', label: 'Cameroun' },
+    { value: 'france', label: 'France' },
+    { value: 'nigeria', label: 'Nigeria' },
+    { value: 'allemagne', label: 'Allemagne' }
+  ];
+
   const filteredCatalogs = allCatalogs.filter(catalog => {
     const matchesSearch = catalog.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          catalog.company.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = selectedCategory === 'all' || 
                            catalog.category.toLowerCase().includes(selectedCategory.toLowerCase());
-    return matchesSearch && matchesCategory;
+    const matchesCountry = selectedCountry === 'all' || 
+                          catalog.country.toLowerCase() === selectedCountry.toLowerCase();
+    return matchesSearch && matchesCategory && matchesCountry;
   });
 
   const premiumCatalogs = filteredCatalogs.filter(catalog => catalog.isPremium);
@@ -146,6 +165,18 @@ const CataloguesPage = () => {
                     {categories.map((category) => (
                       <SelectItem key={category.value} value={category.value}>
                         {category.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Select value={selectedCountry} onValueChange={setSelectedCountry}>
+                  <SelectTrigger className="md:w-64 bg-white/20 border-white/30 text-white">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {countries.map((country) => (
+                      <SelectItem key={country.value} value={country.value}>
+                        {country.label}
                       </SelectItem>
                     ))}
                   </SelectContent>
