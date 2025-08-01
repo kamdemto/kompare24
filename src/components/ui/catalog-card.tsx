@@ -12,6 +12,7 @@ interface CatalogCardProps {
   validUntil: string;
   imageUrl: string;
   viewCount: number;
+  category: string;
   isNew?: boolean;
   isPremium?: boolean;
 }
@@ -23,6 +24,7 @@ const CatalogCard: React.FC<CatalogCardProps> = ({
   validUntil,
   imageUrl,
   viewCount,
+  category,
   isNew = false,
   isPremium = false
 }) => {
@@ -43,6 +45,9 @@ const CatalogCard: React.FC<CatalogCardProps> = ({
           
           {/* Badges */}
           <div className="absolute top-3 left-3 flex flex-col gap-2">
+            <Badge variant="outline" className="bg-white/95 backdrop-blur-sm border-white/20 text-foreground">
+              {category}
+            </Badge>
             {isNew && (
               <Badge className="bg-secondary text-secondary-foreground">
                 Nouveau

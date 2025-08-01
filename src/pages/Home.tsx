@@ -11,6 +11,7 @@ import CatalogCard from '@/components/ui/catalog-card';
 import AdvertiserLogo from '@/components/ui/advertiser-logo';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
 const Home = () => {
   // Mock data - Dans une vraie app, ces données viendraient d'une API
@@ -50,41 +51,124 @@ const Home = () => {
     }
   ];
 
-  const latestCatalogs = [
+  const premiumCatalogs = [
     {
       id: '1',
+      title: 'Collection Printemps-Été',
+      company: 'Louis Vuitton',
+      validUntil: '28/02/2025',
+      imageUrl: catalogPremium,
+      viewCount: 2150,
+      category: 'Mode Luxe',
+      isPremium: true
+    },
+    {
+      id: '2',
+      title: 'Montres d\'exception',
+      company: 'Rolex Cameroun',
+      validUntil: '15/03/2025',
+      imageUrl: 'https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?auto=format&fit=crop&w=400&h=600',
+      viewCount: 1890,
+      category: 'Horlogerie',
+      isPremium: true
+    },
+    {
+      id: '3',
+      title: 'Véhicules Premium',
+      company: 'Mercedes-Benz',
+      validUntil: '25/02/2025',
+      imageUrl: 'https://images.unsplash.com/photo-1582562124811-c09040d0a901?auto=format&fit=crop&w=400&h=600',
+      viewCount: 1456,
+      category: 'Automobile Luxe',
+      isPremium: true
+    },
+    {
+      id: '4',
+      title: 'Décoration Haut de Gamme',
+      company: 'Roche Bobois',
+      validUntil: '20/03/2025',
+      imageUrl: 'https://images.unsplash.com/photo-1721322800607-8c38375eef04?auto=format&fit=crop&w=400&h=600',
+      viewCount: 987,
+      category: 'Décoration',
+      isPremium: true
+    },
+    {
+      id: '5',
+      title: 'Bijoux d\'Exception',
+      company: 'Cartier',
+      validUntil: '10/04/2025',
+      imageUrl: 'https://images.unsplash.com/photo-1466721591366-2d5fba72006d?auto=format&fit=crop&w=400&h=600',
+      viewCount: 2340,
+      category: 'Bijouterie',
+      isPremium: true
+    },
+    {
+      id: '6',
+      title: 'Tech Premium',
+      company: 'Apple Store',
+      validUntil: '05/03/2025',
+      imageUrl: 'https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?auto=format&fit=crop&w=400&h=600',
+      viewCount: 3210,
+      category: 'High-Tech',
+      isPremium: true
+    }
+  ];
+
+  const latestCatalogs = [
+    {
+      id: '7',
       title: 'Grande promotion fin d\'année',
       company: 'Casino',
       validUntil: '31/12/2024',
       imageUrl: catalogSupermarket,
       viewCount: 1250,
+      category: 'Alimentation',
       isNew: true
     },
     {
-      id: '2',
+      id: '8',
       title: 'Soldes d\'hiver exceptionnels',
       company: 'Decathlon',
       validUntil: '15/01/2025',
       imageUrl: catalogSport,
-      viewCount: 890
+      viewCount: 890,
+      category: 'Sport'
     },
     {
-      id: '3',
+      id: '9',
       title: 'Offres automobiles de janvier',
       company: 'Toyota Cameroun',
       validUntil: '20/01/2025',
       imageUrl: catalogAuto,
       viewCount: 567,
-      isPremium: true
+      category: 'Automobile'
     },
     {
-      id: '4',
-      title: 'Collection premium',
-      company: 'Louis Vuitton',
+      id: '10',
+      title: 'Électronique pas cher',
+      company: 'Jumia',
       validUntil: '28/01/2025',
-      imageUrl: catalogPremium,
-      viewCount: 2150,
-      isPremium: true
+      imageUrl: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=400&h=600',
+      viewCount: 1876,
+      category: 'Électronique'
+    },
+    {
+      id: '11',
+      title: 'Mode et accessoires',
+      company: 'H&M',
+      validUntil: '05/02/2025',
+      imageUrl: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=400&h=600',
+      viewCount: 1234,
+      category: 'Mode'
+    },
+    {
+      id: '12',
+      title: 'Offres voyage',
+      company: 'Travel Agency',
+      validUntil: '15/02/2025',
+      imageUrl: 'https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=400&h=600',
+      viewCount: 756,
+      category: 'Voyage'
     }
   ];
 
@@ -147,12 +231,18 @@ const Home = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            {latestCatalogs
-              .filter(catalog => catalog.isPremium)
-              .map((catalog) => (
-                <CatalogCard key={catalog.id} {...catalog} />
-              ))}
+          <div className="relative">
+            <Carousel className="w-full">
+              <CarouselContent className="-ml-4">
+                {premiumCatalogs.map((catalog) => (
+                  <CarouselItem key={catalog.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                    <CatalogCard {...catalog} />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="left-0" />
+              <CarouselNext className="right-0" />
+            </Carousel>
           </div>
 
           <div className="text-center">
@@ -182,10 +272,18 @@ const Home = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            {latestCatalogs.map((catalog) => (
-              <CatalogCard key={catalog.id} {...catalog} />
-            ))}
+          <div className="relative">
+            <Carousel className="w-full">
+              <CarouselContent className="-ml-4">
+                {latestCatalogs.map((catalog) => (
+                  <CarouselItem key={catalog.id} className="pl-4 md:basis-1/2 lg:basis-1/4">
+                    <CatalogCard {...catalog} />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="left-0" />
+              <CarouselNext className="right-0" />
+            </Carousel>
           </div>
 
           <div className="text-center">
