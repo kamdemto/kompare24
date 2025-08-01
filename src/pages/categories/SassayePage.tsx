@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import CatalogCard from '@/components/ui/catalog-card';
-import catalogPremium from '@/assets/catalog-premium-1.jpg';
+import catalogPremium from '@/assets/catalog-premium-9-16.jpg';
 
 const SassayePage = () => {
   const premiumCatalogs = [
@@ -18,7 +18,7 @@ const SassayePage = () => {
       imageUrl: catalogPremium,
       viewCount: 2150,
       isPremium: true,
-      aspectRatio: '1:1' as const
+      aspectRatio: '9:16' as const
     },
     {
       id: '2',
@@ -38,7 +38,7 @@ const SassayePage = () => {
       imageUrl: catalogPremium,
       viewCount: 1432,
       isPremium: true,
-      aspectRatio: '1:1' as const
+      aspectRatio: '9:16' as const
     }
   ];
 

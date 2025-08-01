@@ -26,7 +26,7 @@ const AutomobilePage = () => {
       validUntil: '25/01/2025',
       imageUrl: catalogAuto,
       viewCount: 432,
-      aspectRatio: '1:1' as const
+      aspectRatio: '9:16' as const
     },
     {
       id: '3',

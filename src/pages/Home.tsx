@@ -2,9 +2,9 @@ import React from 'react';
 import { ShoppingBag, Car, User, Star, ArrowRight, Briefcase } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import catalogSupermarket from '@/assets/catalog-supermarket-1.jpg';
-import catalogSport from '@/assets/catalog-sport-1.jpg';
+import catalogSport from '@/assets/catalog-sport-9-16.jpg';
 import catalogAuto from '@/assets/catalog-auto-1.jpg';
-import catalogPremium from '@/assets/catalog-premium-1.jpg';
+import catalogPremium from '@/assets/catalog-premium-9-16.jpg';
 import HeroSection from '@/components/ui/hero-section';
 import CategoryCard from '@/components/ui/category-card';
 import CatalogCard from '@/components/ui/catalog-card';
@@ -58,8 +58,7 @@ const Home = () => {
       validUntil: '31/12/2024',
       imageUrl: catalogSupermarket,
       viewCount: 1250,
-      isNew: true,
-      aspectRatio: '9:16' as const
+      isNew: true
     },
     {
       id: '2',
@@ -67,8 +66,7 @@ const Home = () => {
       company: 'Decathlon',
       validUntil: '15/01/2025',
       imageUrl: catalogSport,
-      viewCount: 890,
-      aspectRatio: '1:1' as const
+      viewCount: 890
     },
     {
       id: '3',
@@ -77,8 +75,7 @@ const Home = () => {
       validUntil: '20/01/2025',
       imageUrl: catalogAuto,
       viewCount: 567,
-      isPremium: true,
-      aspectRatio: '9:16' as const
+      isPremium: true
     },
     {
       id: '4',
@@ -87,8 +84,7 @@ const Home = () => {
       validUntil: '28/01/2025',
       imageUrl: catalogPremium,
       viewCount: 2150,
-      isPremium: true,
-      aspectRatio: '1:1' as const
+      isPremium: true
     }
   ];
 

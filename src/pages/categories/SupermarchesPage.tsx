@@ -27,7 +27,7 @@ const SupermarchesPage = () => {
       validUntil: '28/01/2025',
       imageUrl: catalogSupermarket,
       viewCount: 890,
-      aspectRatio: '1:1' as const
+      aspectRatio: '9:16' as const
     },
     {
       id: '3',
@@ -45,7 +45,7 @@ const SupermarchesPage = () => {
       validUntil: '15/01/2025',
       imageUrl: catalogSupermarket,
       viewCount: 423,
-      aspectRatio: '1:1' as const
+      aspectRatio: '9:16' as const
     },
     {
       id: '5',
@@ -63,7 +63,7 @@ const SupermarchesPage = () => {
       validUntil: '22/01/2025',
       imageUrl: catalogSupermarket,
       viewCount: 345,
-      aspectRatio: '1:1' as const
+      aspectRatio: '9:16' as const
     }
   ];
 

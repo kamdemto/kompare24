@@ -14,7 +14,6 @@ interface CatalogCardProps {
   viewCount: number;
   isNew?: boolean;
   isPremium?: boolean;
-  aspectRatio?: '9:16' | '1:1';
 }
 
 const CatalogCard: React.FC<CatalogCardProps> = ({
@@ -25,16 +24,14 @@ const CatalogCard: React.FC<CatalogCardProps> = ({
   imageUrl,
   viewCount,
   isNew = false,
-  isPremium = false,
-  aspectRatio = '9:16'
+  isPremium = false
 }) => {
-  const aspectClass = aspectRatio === '9:16' ? 'aspect-[9/16]' : 'aspect-square';
 
   return (
     <Card className="group overflow-hidden transition-all duration-300 hover:shadow-elegant hover:-translate-y-1">
       <CardContent className="p-0">
         {/* Image Container */}
-        <div className={`relative ${aspectClass} overflow-hidden bg-muted`}>
+        <div className="relative aspect-[9/16] overflow-hidden bg-muted">
           <img
             src={imageUrl}
             alt={title}

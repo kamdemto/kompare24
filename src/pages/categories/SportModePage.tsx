@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import CatalogCard from '@/components/ui/catalog-card';
-import catalogSport from '@/assets/catalog-sport-1.jpg';
+import catalogSport from '@/assets/catalog-sport-9-16.jpg';
 
 const SportModePage = () => {
   const catalogs = [
@@ -17,7 +17,7 @@ const SportModePage = () => {
       imageUrl: catalogSport,
       viewCount: 890,
       isNew: true,
-      aspectRatio: '1:1' as const
+      aspectRatio: '9:16' as const
     },
     {
       id: '2',
@@ -35,7 +35,7 @@ const SportModePage = () => {
       validUntil: '28/01/2025',
       imageUrl: catalogSport,
       viewCount: 678,
-      aspectRatio: '1:1' as const
+      aspectRatio: '9:16' as const
     },
     {
       id: '4',
