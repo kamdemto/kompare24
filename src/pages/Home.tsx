@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShoppingBag, Car, User, Star, ArrowRight, Briefcase } from 'lucide-react';
+import { ShoppingBag, Car, User, Star, ArrowRight, Briefcase, Home as HomeIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Autoplay from 'embla-carousel-autoplay';
 import catalogSupermarket from '@/assets/catalog-supermarket-1.jpg';
@@ -40,6 +40,14 @@ const Home = () => {
       icon: Car,
       catalogCount: 28,
       gradient: 'bg-gradient-to-br from-green-500 to-teal-600'
+    },
+    {
+      title: 'Immobilier',
+      description: 'Trouvez les meilleures offres immobilières : ventes, locations et terrains',
+      href: '/categories/immobilier',
+      icon: HomeIcon,
+      catalogCount: 18,
+      gradient: 'bg-gradient-to-br from-orange-500 to-red-600'
     },
     {
       title: 'Sassayé',
@@ -199,19 +207,37 @@ const Home = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {categories.map((category) => (
-              <CategoryCard
-                key={category.href}
-                title={category.title}
-                description={category.description}
-                href={category.href}
-                icon={category.icon}
-                catalogCount={category.catalogCount}
-                gradient={category.gradient}
-                isPremium={category.isPremium}
-              />
-            ))}
+          <div className="relative">
+            <Carousel 
+              className="w-full"
+              plugins={[
+                Autoplay({
+                  delay: 3000,
+                })
+              ]}
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+            >
+              <CarouselContent className="-ml-4">
+                {categories.map((category) => (
+                  <CarouselItem key={category.href} className="pl-4 md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
+                    <CategoryCard
+                      title={category.title}
+                      description={category.description}
+                      href={category.href}
+                      icon={category.icon}
+                      catalogCount={category.catalogCount}
+                      gradient={category.gradient}
+                      isPremium={category.isPremium}
+                    />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="left-0" />
+              <CarouselNext className="right-0" />
+            </Carousel>
           </div>
         </div>
       </section>
