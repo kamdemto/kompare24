@@ -10,7 +10,7 @@ const ContactPage = () => {
     {
       icon: Phone,
       title: 'Téléphone',
-      content: '+237 6XX XXX XXX',
+      content: '+237 694 846 159',
       subtitle: 'Du lundi au vendredi, 8h - 18h'
     },
     {
@@ -111,7 +111,7 @@ const ContactPage = () => {
                     <label className="block text-sm font-medium text-foreground mb-2">
                       Téléphone
                     </label>
-                    <Input placeholder="+237 6XX XXX XXX" />
+                    <Input placeholder="+237 694 846 159" />
                   </div>
                   
                   <div>

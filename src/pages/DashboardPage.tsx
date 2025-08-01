@@ -276,7 +276,7 @@ const DashboardPage = () => {
                     <h4 className="font-medium mb-2">Contact</h4>
                     <p className="text-sm text-muted-foreground">
                       contact@techstore.cm<br />
-                      +237 123 456 789
+                      +237 694 846 159
                     </p>
                   </div>
                 </div>

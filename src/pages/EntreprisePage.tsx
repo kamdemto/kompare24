@@ -29,10 +29,10 @@ const EntreprisePage = () => {
       'Bafoussam - Commercial'
     ],
     contact: {
-      phone: '+237 695 123 456',
+      phone: '+237 694 846 159',
       email: 'contact@decathlon-cameroun.com',
       website: 'https://decathlon-cameroun.com',
-      whatsapp: '+237695123456',
+      whatsapp: '+237694846159',
       address: 'Avenue du Général de Gaulle, Bonanjo, Douala'
     },
     sectors: ['Sport & Mode', 'Équipements outdoor', 'Fitness'],

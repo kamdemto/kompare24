@@ -36,9 +36,9 @@ const CatalogDetailPage = () => {
     logo: '/api/placeholder/120/120',
     banner: '/api/placeholder/800/200',
     location: 'Douala, Bonanjo - Face au Commissariat Central',
-    phone: '+237 695 123 456',
+    phone: '+237 694 846 159',
     email: 'contact@decathlon-cameroun.com',
-    whatsapp: '+237695123456',
+    whatsapp: '+237694846159',
     website: 'https://decathlon-cameroun.com',
     sectors: ['Sport & Mode', 'Équipements outdoor'],
     established: '2014'
