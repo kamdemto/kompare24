@@ -28,6 +28,9 @@ const CatalogCard: React.FC<CatalogCardProps> = ({
   isNew = false,
   isPremium = false
 }) => {
+  // Generate company page URL from company name
+  const companySlug = company.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+  const companyUrl = `/entreprise/${companySlug}`;
 
   return (
     <Card className="group overflow-hidden transition-all duration-300 hover:shadow-elegant hover:-translate-y-1">
@@ -64,8 +67,10 @@ const CatalogCard: React.FC<CatalogCardProps> = ({
 
           {/* Quick Action Button */}
           <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <Button size="icon" variant="secondary" className="h-8 w-8">
-              <ExternalLink className="h-4 w-4" />
+            <Button size="icon" variant="secondary" className="h-8 w-8" asChild>
+              <Link to={companyUrl} title={`Voir la page de ${company}`}>
+                <ExternalLink className="h-4 w-4" />
+              </Link>
             </Button>
           </div>
 
