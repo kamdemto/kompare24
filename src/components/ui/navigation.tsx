@@ -11,6 +11,9 @@ const Navigation = () => {
 
   const navItems = [
     { label: 'Accueil', href: '/', icon: Home },
+  ];
+
+  const footerItems = [
     { label: 'Comment ça marche', href: '/comment-ca-marche', icon: Info },
     { label: 'Kompare24 en bref', href: '/a-propos', icon: Info },
     { label: 'Contact', href: '/contact', icon: Phone },
@@ -120,7 +123,7 @@ const Navigation = () => {
 
                   {/* Navigation Links */}
                   <nav className="space-y-4">
-                    {navItems.map((item) => (
+                    {[...navItems, ...footerItems].map((item) => (
                       <Link
                         key={item.href}
                         to={item.href}
