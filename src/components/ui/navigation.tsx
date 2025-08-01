@@ -96,14 +96,14 @@ const Navigation = () => {
               </Button>
             </div>
 
-            <Button asChild variant="outline" className="hidden lg:flex">
+            <Button asChild variant="outline" className="hidden md:flex">
               <Link to="/connexion">
                 <LogIn className="h-4 w-4 mr-2" />
                 Connexion
               </Link>
             </Button>
 
-            <Button asChild className="hidden lg:flex bg-gradient-secondary hover:bg-secondary/90">
+            <Button asChild className="hidden md:flex bg-gradient-secondary hover:bg-secondary/90">
               <Link to="/devenir-annonceur">
                 <Briefcase className="h-4 w-4 mr-2" />
                 Devenir Annonceur
