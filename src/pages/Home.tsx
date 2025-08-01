@@ -1,6 +1,7 @@
 import React from 'react';
 import { ShoppingBag, Car, User, Star, ArrowRight, Briefcase } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Autoplay from 'embla-carousel-autoplay';
 import catalogSupermarket from '@/assets/catalog-supermarket-1.jpg';
 import catalogSport from '@/assets/catalog-sport-9-16.jpg';
 import catalogAuto from '@/assets/catalog-auto-1.jpg';
@@ -232,7 +233,18 @@ const Home = () => {
           </div>
 
           <div className="relative">
-            <Carousel className="w-full">
+            <Carousel 
+              className="w-full"
+              plugins={[
+                Autoplay({
+                  delay: 4000,
+                })
+              ]}
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+            >
               <CarouselContent className="-ml-4">
                 {premiumCatalogs.map((catalog) => (
                   <CarouselItem key={catalog.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
@@ -273,7 +285,18 @@ const Home = () => {
           </div>
 
           <div className="relative">
-            <Carousel className="w-full">
+            <Carousel 
+              className="w-full"
+              plugins={[
+                Autoplay({
+                  delay: 5000,
+                })
+              ]}
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+            >
               <CarouselContent className="-ml-4">
                 {latestCatalogs.map((catalog) => (
                   <CarouselItem key={catalog.id} className="pl-4 md:basis-1/2 lg:basis-1/4">
