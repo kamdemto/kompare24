@@ -36,8 +36,8 @@ const Navigation = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <img 
-              src="/lovable-uploads/51bf0790-d8fc-46e6-af5f-abf3e34328e0.png" 
-              alt="Kompar24" 
+              src="/lovable-uploads/02679eee-a592-4d89-a767-a0006f3c46ce.png" 
+              alt="Kompar24"
               className="h-10 w-auto object-contain"
             />
           </Link>
