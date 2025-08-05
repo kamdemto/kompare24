@@ -161,6 +161,7 @@ const Navigation = () => {
       {/* Mobile Bottom Navigation */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-background border-t">
         <div className="grid grid-cols-4 gap-1">
+          {/* Accueil */}
           <Link
             to="/"
             className={`flex flex-col items-center justify-center py-2 px-1 transition-colors ${
@@ -171,20 +172,27 @@ const Navigation = () => {
             <span className="text-xs mt-1">Accueil</span>
           </Link>
           
-          {categories.slice(0, 2).map((category) => (
-            <Link
-              key={category.href}
-              to={category.href}
-              className={`flex flex-col items-center justify-center py-2 px-1 transition-colors ${
-                location.pathname === category.href ? 'text-primary' : 'text-muted-foreground'
-              }`}
-            >
-              <category.icon className="h-5 w-5" />
-              <span className="text-xs mt-1 text-center leading-tight">
-                {category.label === 'Sport & Mode' ? 'Sport' : category.label}
-              </span>
-            </Link>
-          ))}
+          {/* Sassayé */}
+          <Link
+            to="/categories/sassaye"
+            className={`flex flex-col items-center justify-center py-2 px-1 transition-colors ${
+              location.pathname === '/categories/sassaye' ? 'text-primary' : 'text-muted-foreground'
+            }`}
+          >
+            <Star className="h-5 w-5" />
+            <span className="text-xs mt-1">Sassayé</span>
+          </Link>
+
+          {/* Nos références */}
+          <Link
+            to="/entreprises"
+            className={`flex flex-col items-center justify-center py-2 px-1 transition-colors ${
+              location.pathname === '/entreprises' ? 'text-primary' : 'text-muted-foreground'
+            }`}
+          >
+            <Briefcase className="h-5 w-5" />
+            <span className="text-xs mt-1 text-center leading-tight">Nos réf.</span>
+          </Link>
 
           {/* Menu hamburger pour les autres catégories */}
           <Sheet>
@@ -194,11 +202,11 @@ const Navigation = () => {
                 <span className="text-xs mt-1">Plus</span>
               </button>
             </SheetTrigger>
-            <SheetContent side="bottom" className="h-80">
+            <SheetContent side="bottom" className="h-80 bg-background z-50">
               <div className="flex flex-col space-y-4 mt-6">
                 <h3 className="font-semibold text-foreground text-center">Toutes les catégories</h3>
                 <div className="grid grid-cols-2 gap-4">
-                  {categories.slice(2).map((category) => (
+                  {categories.map((category) => (
                     <SheetClose asChild key={category.href}>
                       <Link
                         to={category.href}

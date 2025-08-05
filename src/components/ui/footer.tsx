@@ -3,21 +3,12 @@ import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
 
 const Footer = () => {
-  const primaryLinks = [
+  const allLinks = [
     { label: 'Accueil', href: '/' },
-    { label: 'Sassayé', href: '/categories/sassaye' },
-    { label: 'Nos références', href: '/entreprises' },
-  ];
-
-  const secondaryLinks = [
     { label: 'Supermarchés', href: '/categories/supermarches' },
     { label: 'Sport & Mode', href: '/categories/sport-mode' },
     { label: 'Automobile', href: '/categories/automobile' },
-    { label: 'Aménagement', href: '/categories/amenagement' },
-    { label: 'Informatique & Teché', href: '/categories/informatique-tech' },
-    { label: 'Station service', href: '/categories/station-service' },
-    { label: 'Restaurant et alimentation', href: '/categories/restaurant-alimentation' },
-    { label: 'Santé & beauté', href: '/categories/sante-beaute' },
+    { label: 'Sassayé', href: '/categories/sassaye' },
     { label: 'Comment ça marche', href: '/comment-ca-marche' },
     { label: 'Kompare24 en bref', href: '/a-propos' },
     { label: 'Contact', href: '/contact' },
@@ -52,40 +43,19 @@ const Footer = () => {
         {/* Navigation Links */}
         <div className="text-center mb-8">
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
-            {/* Primary links displayed directly */}
-            {primaryLinks.map((link, index) => (
+            {allLinks.map((link, index) => (
               <React.Fragment key={link.href}>
                 <Link
                   to={link.href}
-                  className="text-primary-foreground/80 hover:text-primary-foreground transition-colors text-sm font-medium"
+                  className="text-primary-foreground/80 hover:text-primary-foreground transition-colors text-sm"
                 >
                   {link.label}
                 </Link>
-                {index < primaryLinks.length - 1 && (
+                {index < allLinks.length - 1 && (
                   <span className="text-primary-foreground/40 hidden md:inline">•</span>
                 )}
               </React.Fragment>
             ))}
-            
-            {/* Dropdown for secondary links */}
-            <div className="relative group">
-              <button className="text-primary-foreground/80 hover:text-primary-foreground transition-colors text-sm">
-                Plus
-              </button>
-              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-64 bg-background border rounded-lg shadow-elegant opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 p-4">
-                <div className="grid grid-cols-2 gap-2">
-                  {secondaryLinks.map((link) => (
-                    <Link
-                      key={link.href}
-                      to={link.href}
-                      className="text-foreground hover:text-primary transition-colors text-xs py-1 px-2 rounded hover:bg-muted block"
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
           </div>
         </div>
 
