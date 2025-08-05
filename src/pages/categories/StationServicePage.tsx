@@ -8,6 +8,7 @@ import CatalogCard from '@/components/ui/catalog-card';
 const StationServicePage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedAdvertiser, setSelectedAdvertiser] = useState('all');
+  const [selectedCountry, setSelectedCountry] = useState('all');
   const [sortBy, setSortBy] = useState('newest');
 
   // Mock data avec les annonceurs spécifiés
@@ -20,6 +21,7 @@ const StationServicePage = () => {
       imageUrl: 'https://images.unsplash.com/photo-1527576539890-dfa815648363?auto=format&fit=crop&w=400&h=600',
       viewCount: 2150,
       category: 'Carburants',
+      country: 'France',
       isNew: true
     },
     {
@@ -29,7 +31,8 @@ const StationServicePage = () => {
       validUntil: '15/04/2025',
       imageUrl: 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?auto=format&fit=crop&w=400&h=600',
       viewCount: 1890,
-      category: 'Services Auto'
+      category: 'Services Auto',
+      country: 'Belgique'
     },
     {
       id: '3',
@@ -38,7 +41,8 @@ const StationServicePage = () => {
       validUntil: '20/03/2025',
       imageUrl: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?auto=format&fit=crop&w=400&h=600',
       viewCount: 1567,
-      category: 'Petroleum'
+      category: 'Petroleum',
+      country: 'Suisse'
     },
     {
       id: '4',
@@ -47,7 +51,8 @@ const StationServicePage = () => {
       validUntil: '25/03/2025',
       imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=400&h=600',
       viewCount: 1234,
-      category: 'Entretien Auto'
+      category: 'Entretien Auto',
+      country: 'France'
     },
     {
       id: '5',
@@ -56,7 +61,8 @@ const StationServicePage = () => {
       validUntil: '10/04/2025',
       imageUrl: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=400&h=600',
       viewCount: 987,
-      category: 'Boutique'
+      category: 'Boutique',
+      country: 'Belgique'
     },
     {
       id: '6',
@@ -65,17 +71,20 @@ const StationServicePage = () => {
       validUntil: '05/04/2025',
       imageUrl: 'https://images.unsplash.com/photo-1527576539890-dfa815648363?auto=format&fit=crop&w=400&h=600',
       viewCount: 1456,
-      category: 'Carburants Premium'
+      category: 'Carburants Premium',
+      country: 'Suisse'
     }
   ];
 
   const advertisers = ['Total Energie', 'Tradex', 'Bocom Petroleum'];
+  const countries = ['France', 'Belgique', 'Suisse'];
 
   const filteredCatalogs = catalogs.filter(catalog => {
     const matchesSearch = catalog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          catalog.company.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesAdvertiser = selectedAdvertiser === 'all' || catalog.company === selectedAdvertiser;
-    return matchesSearch && matchesAdvertiser;
+    const matchesCountry = selectedCountry === 'all' || catalog.country === selectedCountry;
+    return matchesSearch && matchesAdvertiser && matchesCountry;
   });
 
   const sortedCatalogs = [...filteredCatalogs].sort((a, b) => {
@@ -143,6 +152,21 @@ const StationServicePage = () => {
                 {advertisers.map((advertiser) => (
                   <SelectItem key={advertiser} value={advertiser}>
                     {advertiser}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Select value={selectedCountry} onValueChange={setSelectedCountry}>
+              <SelectTrigger className="w-full md:w-48">
+                <MapPin className="h-4 w-4 mr-2" />
+                <SelectValue placeholder="Tous les pays" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Tous les pays</SelectItem>
+                {countries.map((country) => (
+                  <SelectItem key={country} value={country}>
+                    {country}
                   </SelectItem>
                 ))}
               </SelectContent>
