@@ -12,6 +12,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import { Users, Store, BookOpen, Settings, Plus, Edit, Trash2, Crown, Eye, BarChart3, UserPlus, Search } from 'lucide-react';
 import { AdvertiserForm, AdvertiserFormData } from '../components/ui/advertiser-form';
+import { SystemUserForm, SystemUserFormData } from '../components/ui/system-user-form';
 import { useToast } from '../hooks/use-toast';
 
 // Mock data
@@ -142,6 +143,25 @@ const AdminPage = () => {
     });
   };
 
+  const handleAddSystemUser = async (data: SystemUserFormData) => {
+    const newUser = {
+      id: users.length + 1,
+      name: data.name,
+      email: data.email,
+      type: data.type as 'admin' | 'moderateur' | 'support',
+      status: 'active' as const,
+      premium: false,
+      catalogs: 0
+    };
+    
+    setUsers([...users, newUser]);
+    
+    toast({
+      title: "Utilisateur système ajouté !",
+      description: `Le compte de ${data.name} (${data.type}) a été créé.`,
+    });
+  };
+
   const handleAddCatalog = async (data: any) => {
     const newCatalog = {
       id: catalogs.length + 1,
@@ -244,24 +264,44 @@ const AdminPage = () => {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle>Gestion des Utilisateurs</CardTitle>
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button>
-                      <UserPlus className="h-4 w-4 mr-2" />
-                      Ajouter un annonceur
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
-                    <DialogHeader>
-                      <DialogTitle>Créer un nouveau compte annonceur</DialogTitle>
-                    </DialogHeader>
-                    <AdvertiserForm 
-                      onSubmit={handleAddAdvertiser}
-                      isAdmin={true}
-                      title="Créer un compte annonceur"
-                    />
-                  </DialogContent>
-                </Dialog>
+                <div className="flex gap-2">
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button variant="outline">
+                        <UserPlus className="h-4 w-4 mr-2" />
+                        Utilisateur système
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                      <DialogHeader>
+                        <DialogTitle>Créer un utilisateur système</DialogTitle>
+                      </DialogHeader>
+                      <SystemUserForm 
+                        onSubmit={handleAddSystemUser}
+                        title="Créer un utilisateur système"
+                      />
+                    </DialogContent>
+                  </Dialog>
+                  
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button>
+                        <UserPlus className="h-4 w-4 mr-2" />
+                        Ajouter un annonceur
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                      <DialogHeader>
+                        <DialogTitle>Créer un nouveau compte annonceur</DialogTitle>
+                      </DialogHeader>
+                      <AdvertiserForm 
+                        onSubmit={handleAddAdvertiser}
+                        isAdmin={true}
+                        title="Créer un compte annonceur"
+                      />
+                    </DialogContent>
+                  </Dialog>
+                </div>
               </CardHeader>
               <CardContent>
                 {/* Search Field */}
