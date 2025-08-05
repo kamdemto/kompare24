@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShoppingBag, Car, User, Star, ArrowRight, Briefcase, Home as HomeIcon, Monitor, Fuel, UtensilsCrossed, Heart } from 'lucide-react';
+import { ShoppingBag, Car, User, Star, ArrowRight, Briefcase, Home as HomeIcon, Monitor, Fuel, Utensils, Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCallback } from 'react';
 import catalogSupermarket from '@/assets/catalog-supermarket-1.jpg';
@@ -69,7 +69,7 @@ const Home = () => {
       title: 'Restaurant et alimentation',
       description: 'Fast-food, restaurants, boulangeries et spécialités culinaires',
       href: '/categories/restaurant-alimentation',
-      icon: UtensilsCrossed,
+      icon: Utensils,
       catalogCount: 22,
       gradient: 'bg-gradient-to-br from-yellow-500 to-orange-500'
     },

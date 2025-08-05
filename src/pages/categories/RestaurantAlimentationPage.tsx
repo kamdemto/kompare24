@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { UtensilsCrossed, ArrowLeft, Clock, MapPin, Star } from 'lucide-react';
+import { Utensils, ArrowLeft, Clock, MapPin, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -87,7 +87,7 @@ const RestaurantAlimentationPage = () => {
           <div className="max-w-4xl">
             <div className="flex items-center space-x-4 mb-6">
               <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
-                <UtensilsCrossed className="h-8 w-8 text-white" />
+                <Utensils className="h-8 w-8 text-white" />
               </div>
               <div>
                 <h1 className="text-4xl md:text-5xl font-bold mb-2">
@@ -165,7 +165,7 @@ const RestaurantAlimentationPage = () => {
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-3">
                     <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full flex items-center justify-center">
-                      <UtensilsCrossed className="h-6 w-6 text-white" />
+                      <Utensils className="h-6 w-6 text-white" />
                     </div>
                     <span>{restaurant}</span>
                   </CardTitle>
