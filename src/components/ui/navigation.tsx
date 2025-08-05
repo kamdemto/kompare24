@@ -26,7 +26,7 @@ const Navigation = () => {
     { label: 'Sport & Mode', href: '/categories/sport-mode', icon: User },
     { label: 'Automobile', href: '/categories/automobile', icon: Car },
     { label: 'Aménagement', href: '/categories/amenagement', icon: Home },
-    { label: 'Informatique & Teché', href: '/categories/informatique-tech', icon: Monitor },
+    { label: 'Informatique & Tech', href: '/categories/informatique-tech', icon: Monitor },
     { label: 'Station service', href: '/categories/station-service', icon: Fuel },
     { label: 'Restaurant et alimentation', href: '/categories/restaurant-alimentation', icon: Utensils },
     { label: 'Santé & beauté', href: '/categories/sante-beaute', icon: Heart },
