@@ -29,7 +29,6 @@ const Navigation = () => {
     { label: 'Station service', href: '/categories/station-service', icon: Fuel },
     { label: 'Restaurant et alimentation', href: '/categories/restaurant-alimentation', icon: Utensils },
     { label: 'Santé & beauté', href: '/categories/sante-beaute', icon: Heart },
-    { label: 'Sassayé', href: '/categories/sassaye', icon: Star },
   ];
 
   return (

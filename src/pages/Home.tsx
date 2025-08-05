@@ -18,6 +18,15 @@ const Home = () => {
   // Mock data - Dans une vraie app, ces données viendraient d'une API
   const categories = [
     {
+      title: 'Sassayé',
+      description: 'Offres premium exclusives des meilleures enseignes',
+      href: '/categories/sassaye',
+      icon: Star,
+      catalogCount: 15,
+      gradient: 'bg-gradient-secondary',
+      isPremium: true
+    },
+    {
       title: 'Supermarchés',
       description: 'Découvrez les meilleures offres alimentaires et produits du quotidien',
       href: '/categories/supermarches',
@@ -80,15 +89,6 @@ const Home = () => {
       icon: Heart,
       catalogCount: 19,
       gradient: 'bg-gradient-to-br from-pink-500 to-rose-600'
-    },
-    {
-      title: 'Sassayé',
-      description: 'Offres premium exclusives des meilleures enseignes',
-      href: '/categories/sassaye',
-      icon: Star,
-      catalogCount: 15,
-      gradient: 'bg-gradient-secondary',
-      isPremium: true
     }
   ];
 
