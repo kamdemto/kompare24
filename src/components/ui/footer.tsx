@@ -112,6 +112,10 @@ const Footer = () => {
             {/* Legal Links */}
             <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs text-primary-foreground/80">
               <span>&copy; 2024 Kompar24. Tous droits réservés.</span>
+              <span className="hidden sm:inline text-primary-foreground/40">•</span>
+              <a href="https://iamkto.pro" target="_blank" rel="noopener noreferrer" className="hover:text-primary-foreground transition-colors">
+                Dev by Ktocrea
+              </a>
               {legalLinks.map((link, index) => (
                 <React.Fragment key={link.href}>
                   <span className="hidden sm:inline text-primary-foreground/40">•</span>
