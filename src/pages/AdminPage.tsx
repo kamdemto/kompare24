@@ -71,6 +71,7 @@ const AdminPage = () => {
   const [userSearch, setUserSearch] = useState('');
   const [catalogSearch, setCatalogSearch] = useState('');
   const [categorySearch, setCategorySearch] = useState('');
+  const [catalogStatusFilter, setCatalogStatusFilter] = useState('all');
 
   const toggleUserStatus = (userId: number) => {
     setUsers(users.map(user => 
@@ -139,6 +140,24 @@ const AdminPage = () => {
     });
   };
 
+  const handleAddCatalog = async (data: any) => {
+    const newCatalog = {
+      id: catalogs.length + 1,
+      title: data.title,
+      advertiser: data.advertiser,
+      category: data.category,
+      status: 'active' as const,
+      views: 0
+    };
+    
+    setCatalogs([...catalogs, newCatalog]);
+    
+    toast({
+      title: "Catalogue ajouté avec succès !",
+      description: `Le catalogue "${data.title}" a été créé.`,
+    });
+  };
+
   // Filter functions
   const filteredUsers = users.filter(user => 
     user.name.toLowerCase().includes(userSearch.toLowerCase()) ||
@@ -146,11 +165,15 @@ const AdminPage = () => {
     user.type.toLowerCase().includes(userSearch.toLowerCase())
   );
 
-  const filteredCatalogs = catalogs.filter(catalog =>
-    catalog.title.toLowerCase().includes(catalogSearch.toLowerCase()) ||
-    catalog.advertiser.toLowerCase().includes(catalogSearch.toLowerCase()) ||
-    catalog.category.toLowerCase().includes(catalogSearch.toLowerCase())
-  );
+  const filteredCatalogs = catalogs.filter(catalog => {
+    const matchesSearch = catalog.title.toLowerCase().includes(catalogSearch.toLowerCase()) ||
+      catalog.advertiser.toLowerCase().includes(catalogSearch.toLowerCase()) ||
+      catalog.category.toLowerCase().includes(catalogSearch.toLowerCase());
+    
+    const matchesStatus = catalogStatusFilter === 'all' || catalog.status === catalogStatusFilter;
+    
+    return matchesSearch && matchesStatus;
+  });
 
   const filteredCategories = categories.filter(category =>
     category.name.toLowerCase().includes(categorySearch.toLowerCase()) ||
@@ -326,23 +349,118 @@ const AdminPage = () => {
 
           <TabsContent value="catalogs">
             <Card>
-              <CardHeader>
+              <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle>Gestion des Catalogues</CardTitle>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button>
+                      <Plus className="h-4 w-4 mr-2" />
+                      Ajouter un catalogue
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-2xl">
+                    <DialogHeader>
+                      <DialogTitle>Ajouter un nouveau catalogue</DialogTitle>
+                    </DialogHeader>
+                    <div className="space-y-4">
+                      <div>
+                        <Label htmlFor="catalog-title">Titre du catalogue</Label>
+                        <Input
+                          id="catalog-title"
+                          placeholder="Ex: Promos Janvier 2024"
+                          onChange={(e) => {
+                            const title = e.target.value;
+                            e.target.setAttribute('data-title', title);
+                          }}
+                        />
+                      </div>
+                      
+                      <div>
+                        <Label htmlFor="catalog-advertiser">Annonceur</Label>
+                        <Select onValueChange={(value) => {
+                          const select = document.getElementById('catalog-advertiser');
+                          if (select) select.setAttribute('data-advertiser', value);
+                        }}>
+                          <SelectTrigger id="catalog-advertiser">
+                            <SelectValue placeholder="Sélectionnez un annonceur" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {users.filter(u => u.type === 'annonceur').map((user) => (
+                              <SelectItem key={user.id} value={user.name}>{user.name}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      <div>
+                        <Label htmlFor="catalog-category">Catégorie</Label>
+                        <Select onValueChange={(value) => {
+                          const select = document.getElementById('catalog-category');
+                          if (select) select.setAttribute('data-category', value);
+                        }}>
+                          <SelectTrigger id="catalog-category">
+                            <SelectValue placeholder="Sélectionnez une catégorie" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {categories.map((category) => (
+                              <SelectItem key={category.id} value={category.name}>{category.name}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      <Button 
+                        onClick={() => {
+                          const titleInput = document.getElementById('catalog-title') as HTMLInputElement;
+                          const advertiserSelect = document.getElementById('catalog-advertiser');
+                          const categorySelect = document.getElementById('catalog-category');
+                          
+                          const data = {
+                            title: titleInput?.getAttribute('data-title') || titleInput?.value || '',
+                            advertiser: advertiserSelect?.getAttribute('data-advertiser') || '',
+                            category: categorySelect?.getAttribute('data-category') || ''
+                          };
+                          
+                          if (data.title && data.advertiser && data.category) {
+                            handleAddCatalog(data);
+                          }
+                        }}
+                        className="w-full"
+                      >
+                        Créer le catalogue
+                      </Button>
+                    </div>
+                  </DialogContent>
+                </Dialog>
               </CardHeader>
               <CardContent>
-                {/* Search Field */}
-                <div className="mb-6">
-                  <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-                    <Input
-                      placeholder="Rechercher par titre, annonceur ou catégorie..."
-                      value={catalogSearch}
-                      onChange={(e) => setCatalogSearch(e.target.value)}
-                      className="pl-10"
-                    />
+                {/* Search and Filter Fields */}
+                <div className="mb-6 space-y-4">
+                  <div className="flex gap-4">
+                    <div className="flex-1 relative">
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                      <Input
+                        placeholder="Rechercher par titre, annonceur ou catégorie..."
+                        value={catalogSearch}
+                        onChange={(e) => setCatalogSearch(e.target.value)}
+                        className="pl-10"
+                      />
+                    </div>
+                    <div className="w-48">
+                      <Select value={catalogStatusFilter} onValueChange={setCatalogStatusFilter}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Filtrer par statut" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="all">Tous les statuts</SelectItem>
+                          <SelectItem value="active">Actif</SelectItem>
+                          <SelectItem value="inactive">Inactif</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
                   </div>
-                  {catalogSearch && (
-                    <p className="text-sm text-muted-foreground mt-2">
+                  {(catalogSearch || catalogStatusFilter !== 'all') && (
+                    <p className="text-sm text-muted-foreground">
                       {filteredCatalogs.length} résultat(s) trouvé(s)
                     </p>
                   )}
