@@ -1,12 +1,16 @@
-import React from 'react';
-import { Home, Search, Filter, ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Home, Search, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import CatalogCard from '@/components/ui/catalog-card';
 
 const AmenagementPage = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedAdvertiser, setSelectedAdvertiser] = useState('all');
+  const [selectedCountry, setSelectedCountry] = useState('all');
+  const [selectedCity, setSelectedCity] = useState('all');
+  const [sortBy, setSortBy] = useState('newest');
   // Mock data pour les catalogues aménagement
   const catalogs = [
     {
@@ -16,6 +20,8 @@ const AmenagementPage = () => {
       validUntil: '31/03/2025',
       imageUrl: '/placeholder.svg',
       viewCount: 1850,
+      country: 'France',
+      city: 'Paris',
       isNew: true,
       aspectRatio: '9:16' as const
     },
@@ -26,6 +32,8 @@ const AmenagementPage = () => {
       validUntil: '28/02/2025',
       imageUrl: '/placeholder.svg',
       viewCount: 1240,
+      country: 'Belgique',
+      city: 'Bruxelles',
       aspectRatio: '9:16' as const
     },
     {
@@ -35,6 +43,8 @@ const AmenagementPage = () => {
       validUntil: '15/02/2025',
       imageUrl: '/placeholder.svg',
       viewCount: 987,
+      country: 'Suisse',
+      city: 'Genève',
       aspectRatio: '9:16' as const
     },
     {
@@ -44,6 +54,8 @@ const AmenagementPage = () => {
       validUntil: '20/02/2025',
       imageUrl: '/placeholder.svg',
       viewCount: 756,
+      country: 'France',
+      city: 'Lyon',
       aspectRatio: '9:16' as const
     },
     {
@@ -53,6 +65,8 @@ const AmenagementPage = () => {
       validUntil: '10/03/2025',
       imageUrl: '/placeholder.svg',
       viewCount: 623,
+      country: 'Cameroun',
+      city: 'Douala',
       aspectRatio: '9:16' as const
     },
     {
@@ -62,160 +76,191 @@ const AmenagementPage = () => {
       validUntil: '25/02/2025',
       imageUrl: '/placeholder.svg',
       viewCount: 445,
+      country: 'Cameroun',
+      city: 'Yaoundé',
       aspectRatio: '9:16' as const
     }
   ];
 
+  const companies = ['Samsung', 'IKEA', 'Bureau Vallée', 'Alinéa', 'Whirlpool', 'Leroy Merlin'];
+  const countries = ['France', 'Belgique', 'Suisse', 'Cameroun'];
+  const cities = ['Paris', 'Bruxelles', 'Genève', 'Lyon', 'Douala', 'Yaoundé'];
+
+  const filteredCatalogs = catalogs.filter(catalog => {
+    const matchesSearch = catalog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         catalog.company.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesAdvertiser = selectedAdvertiser === 'all' || catalog.company === selectedAdvertiser;
+    const matchesCountry = selectedCountry === 'all' || catalog.country === selectedCountry;
+    const matchesCity = selectedCity === 'all' || catalog.city === selectedCity;
+    return matchesSearch && matchesAdvertiser && matchesCountry && matchesCity;
+  });
+
+  const sortedCatalogs = [...filteredCatalogs].sort((a, b) => {
+    switch (sortBy) {
+      case 'newest':
+        return new Date(b.validUntil).getTime() - new Date(a.validUntil).getTime();
+      case 'popular':
+        return b.viewCount - a.viewCount;
+      case 'name':
+        return a.title.localeCompare(b.title);
+      default:
+        return 0;
+    }
+  });
+
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero Section */}
+      {/* Header */}
       <section className="bg-gradient-primary text-white py-16">
         <div className="container px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="flex items-center justify-center mb-4">
-              <Home className="h-12 w-12 mr-4" />
-              <h1 className="text-4xl md:text-5xl font-bold">Aménagement</h1>
+            <div className="flex justify-center mb-6">
+              <div className="p-4 bg-white/20 rounded-full backdrop-blur-sm">
+                <Home className="h-12 w-12" />
+              </div>
             </div>
-            <p className="text-xl text-white/90 mb-8">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              Aménagement
+            </h1>
+            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
               Découvrez les meilleures offres d'équipements, électroménager, mobilier et décoration
             </p>
-            
-            {/* Search & Filters */}
-            <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 max-w-3xl mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
-                  <Input
-                    placeholder="Rechercher en aménagement..."
-                    className="pl-10 h-12 text-foreground"
-                  />
-                </div>
-                
-                <Select>
-                  <SelectTrigger className="h-12">
-                    <SelectValue placeholder="Catégorie" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Toutes les catégories</SelectItem>
-                    <SelectItem value="electromenager">Électroménager</SelectItem>
-                    <SelectItem value="mobilier">Mobilier</SelectItem>
-                    <SelectItem value="decoration">Décoration</SelectItem>
-                    <SelectItem value="bureau">Bureau</SelectItem>
-                    <SelectItem value="cuisine">Cuisine</SelectItem>
-                  </SelectContent>
-                </Select>
-                
-                <Select>
-                  <SelectTrigger className="h-12">
-                    <SelectValue placeholder="Ville" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Toutes les villes</SelectItem>
-                    <SelectItem value="douala">Douala</SelectItem>
-                    <SelectItem value="yaounde">Yaoundé</SelectItem>
-                    <SelectItem value="bafoussam">Bafoussam</SelectItem>
-                    <SelectItem value="bamenda">Bamenda</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              
-              <Button className="w-full md:w-auto mt-4 bg-gradient-secondary hover:bg-secondary/90">
-                <Search className="h-4 w-4 mr-2" />
-                Rechercher
-              </Button>
+            <div className="flex flex-wrap justify-center gap-4 text-sm">
+              <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                {catalogs.length} catalogues disponibles
+              </span>
+              <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                {companies.length} enseignes partenaires
+              </span>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Filters */}
+      <section className="py-8 bg-muted/50 sticky top-16 z-40 backdrop-blur-sm">
+        <div className="container px-4">
+          <div className="flex flex-col md:flex-row gap-4 items-center">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+              <Input
+                placeholder="Rechercher en aménagement..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+            
+            <Select value={selectedAdvertiser} onValueChange={setSelectedAdvertiser}>
+              <SelectTrigger className="w-full md:w-64">
+                <SelectValue placeholder="Toutes les enseignes" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Toutes les enseignes</SelectItem>
+                {companies.map((company) => (
+                  <SelectItem key={company} value={company}>
+                    {company}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Select value={selectedCountry} onValueChange={setSelectedCountry}>
+              <SelectTrigger className="w-full md:w-48">
+                <MapPin className="h-4 w-4 mr-2" />
+                <SelectValue placeholder="Tous les pays" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Tous les pays</SelectItem>
+                {countries.map((country) => (
+                  <SelectItem key={country} value={country}>
+                    {country}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Select value={selectedCity} onValueChange={setSelectedCity}>
+              <SelectTrigger className="w-full md:w-48">
+                <SelectValue placeholder="Toutes les villes" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Toutes les villes</SelectItem>
+                {cities.map((city) => (
+                  <SelectItem key={city} value={city}>
+                    {city}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Select value={sortBy} onValueChange={setSortBy}>
+              <SelectTrigger className="w-full md:w-48">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="newest">Plus récents</SelectItem>
+                <SelectItem value="popular">Plus populaires</SelectItem>
+                <SelectItem value="name">Nom A-Z</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </div>
       </section>
 
       {/* Catalogs Grid */}
-      <section className="py-16">
+      <section className="py-12">
         <div className="container px-4">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
-            <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
-                Catalogues Aménagement
-              </h2>
+          {sortedCatalogs.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {sortedCatalogs.map((catalog) => (
+                <CatalogCard key={catalog.id} {...catalog} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <Home className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-foreground mb-2">
+                Aucun catalogue trouvé
+              </h3>
               <p className="text-muted-foreground">
-                {catalogs.length} catalogues disponibles
+                Essayez de modifier vos critères de recherche
               </p>
             </div>
-            
-            <div className="flex items-center space-x-4 mt-4 md:mt-0">
-              <Select>
-                <SelectTrigger className="w-48">
-                  <Filter className="h-4 w-4 mr-2" />
-                  <SelectValue placeholder="Trier par" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="recent">Plus récents</SelectItem>
-                  <SelectItem value="popular">Plus populaires</SelectItem>
-                  <SelectItem value="price-low">Prix croissant</SelectItem>
-                  <SelectItem value="price-high">Prix décroissant</SelectItem>
-                  <SelectItem value="brand">Par marque</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {catalogs.map((catalog) => (
-              <CatalogCard key={catalog.id} {...catalog} />
-            ))}
-          </div>
-
-          {/* Load More */}
-          <div className="text-center mt-12">
-            <Button variant="outline" className="px-8">
-              Charger plus de catalogues
-              <ArrowRight className="h-4 w-4 ml-2" />
-            </Button>
-          </div>
+          )}
         </div>
       </section>
 
-      {/* Popular Brands */}
+      {/* Partners Section */}
       <section className="py-16 bg-muted/50">
         <div className="container px-4">
-          <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-8">
-            Marques Populaires
-          </h2>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-foreground mb-4">
+              Nos Partenaires Aménagement
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Découvrez nos enseignes partenaires pour vos besoins d'aménagement
+            </p>
+          </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-            {['Samsung', 'IKEA', 'Bureau Vallée', 'Alinéa', 'Whirlpool', 'Leroy Merlin'].map((brand) => (
-              <Link
-                key={brand}
-                to={`/entreprise/${brand.toLowerCase().replace(/\s+/g, '-')}`}
-                className="group bg-white rounded-xl p-6 text-center hover:shadow-elegant transition-all duration-300 hover:-translate-y-1"
-              >
-                <div className="h-16 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-lg mb-4 flex items-center justify-center">
-                  <Home className="h-8 w-8 text-primary" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {companies.map((company) => (
+              <div key={company} className="text-center p-6 bg-background rounded-lg shadow-sm border">
+                <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Home className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors text-sm">
-                  {brand}
-                </h3>
-              </Link>
+                <h3 className="font-semibold text-foreground mb-2">{company}</h3>
+                <p className="text-sm text-muted-foreground">
+                  {company === 'Samsung' && 'Électroménager et technologie'}
+                  {company === 'IKEA' && 'Mobilier et décoration'}
+                  {company === 'Bureau Vallée' && 'Équipements de bureau'}
+                  {company === 'Alinéa' && 'Décoration d\'intérieur'}
+                  {company === 'Whirlpool' && 'Appareils ménagers'}
+                  {company === 'Leroy Merlin' && 'Bricolage et aménagement'}
+                </p>
+              </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Call to Action */}
-      <section className="py-16 bg-gradient-secondary text-secondary-foreground">
-        <div className="container px-4 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">
-            Vous êtes un équipementier ?
-          </h2>
-          <p className="text-lg mb-8 opacity-90">
-            Rejoignez Kompar24 et diffusez vos catalogues d'équipements auprès de milliers de clients potentiels
-          </p>
-          <Button 
-            variant="outline" 
-            size="lg"
-            className="bg-white text-primary hover:bg-white/90"
-          >
-            Devenir partenaire
-          </Button>
         </div>
       </section>
     </div>

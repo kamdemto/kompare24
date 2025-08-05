@@ -1,12 +1,16 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Utensils, ArrowLeft, Clock, MapPin, Star } from 'lucide-react';
+import React, { useState } from 'react';
+import { Utensils, Search, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import CatalogCard from '@/components/ui/catalog-card';
 
 const RestaurantAlimentationPage = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedAdvertiser, setSelectedAdvertiser] = useState('all');
+  const [selectedCountry, setSelectedCountry] = useState('all');
+  const [selectedCity, setSelectedCity] = useState('all');
+  const [sortBy, setSortBy] = useState('newest');
   const catalogs = [
     {
       id: '1',
@@ -15,7 +19,9 @@ const RestaurantAlimentationPage = () => {
       validUntil: '31/01/2025',
       imageUrl: 'https://images.unsplash.com/photo-1513185158878-8d132c1790bb?auto=format&fit=crop&w=400&h=600',
       viewCount: 1840,
-      category: 'Fast-food'
+      category: 'Fast-food',
+      country: 'Cameroun',
+      city: 'Douala'
     },
     {
       id: '2',
@@ -24,7 +30,9 @@ const RestaurantAlimentationPage = () => {
       validUntil: '15/02/2025',
       imageUrl: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=400&h=600',
       viewCount: 967,
-      category: 'Boulangerie'
+      category: 'Boulangerie',
+      country: 'France',
+      city: 'Paris'
     },
     {
       id: '3',
@@ -33,7 +41,9 @@ const RestaurantAlimentationPage = () => {
       validUntil: '28/02/2025',
       imageUrl: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?auto=format&fit=crop&w=400&h=600',
       viewCount: 1456,
-      category: 'Restaurant'
+      category: 'Restaurant',
+      country: 'Belgique',
+      city: 'Bruxelles'
     },
     {
       id: '4',
@@ -42,7 +52,9 @@ const RestaurantAlimentationPage = () => {
       validUntil: '20/03/2025',
       imageUrl: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=400&h=600',
       viewCount: 2130,
-      category: 'Boissons'
+      category: 'Boissons',
+      country: 'France',
+      city: 'Lyon'
     },
     {
       id: '5',
@@ -51,7 +63,9 @@ const RestaurantAlimentationPage = () => {
       validUntil: '10/02/2025',
       imageUrl: 'https://images.unsplash.com/photo-1621939514649-280e2ee25f60?auto=format&fit=crop&w=400&h=600',
       viewCount: 876,
-      category: 'Snacks'
+      category: 'Snacks',
+      country: 'Suisse',
+      city: 'Genève'
     },
     {
       id: '6',
@@ -60,125 +74,189 @@ const RestaurantAlimentationPage = () => {
       validUntil: '25/02/2025',
       imageUrl: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&h=600',
       viewCount: 1234,
-      category: 'Restaurant'
+      category: 'Restaurant',
+      country: 'Cameroun',
+      city: 'Yaoundé'
     }
   ];
 
-  const subcategories = [
-    { name: 'Fast-food', count: 12 },
-    { name: 'Restaurants', count: 8 },
-    { name: 'Boulangeries', count: 6 },
-    { name: 'Boissons', count: 10 },
-    { name: 'Snacks', count: 7 }
-  ];
+  const companies = ['KFC Cameroun', 'Boulangerie Paul', 'Pizza Hut', 'Coca-Cola', 'Carrefour Express', 'Restaurant Le Palais'];
+  const countries = ['Cameroun', 'France', 'Belgique', 'Suisse'];
+  const cities = ['Douala', 'Paris', 'Bruxelles', 'Lyon', 'Genève', 'Yaoundé'];
+
+  const filteredCatalogs = catalogs.filter(catalog => {
+    const matchesSearch = catalog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         catalog.company.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesAdvertiser = selectedAdvertiser === 'all' || catalog.company === selectedAdvertiser;
+    const matchesCountry = selectedCountry === 'all' || catalog.country === selectedCountry;
+    const matchesCity = selectedCity === 'all' || catalog.city === selectedCity;
+    return matchesSearch && matchesAdvertiser && matchesCountry && matchesCity;
+  });
+
+  const sortedCatalogs = [...filteredCatalogs].sort((a, b) => {
+    switch (sortBy) {
+      case 'newest':
+        return new Date(b.validUntil).getTime() - new Date(a.validUntil).getTime();
+      case 'popular':
+        return b.viewCount - a.viewCount;
+      case 'name':
+        return a.title.localeCompare(b.title);
+      default:
+        return 0;
+    }
+  });
 
   return (
-    <div className="min-h-screen bg-gradient-subtle">
+    <div className="min-h-screen bg-background">
       {/* Header */}
       <section className="bg-gradient-to-br from-yellow-500 to-orange-500 text-white py-16">
         <div className="container px-4">
-          <Button asChild variant="outline" className="mb-6 border-white/20 text-white hover:bg-white/10">
-            <Link to="/">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Retour à l'accueil
-            </Link>
-          </Button>
-          
-          <div className="max-w-4xl">
-            <div className="flex items-center space-x-4 mb-6">
-              <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
-                <Utensils className="h-8 w-8 text-white" />
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="flex justify-center mb-6">
+              <div className="p-4 bg-white/20 rounded-full backdrop-blur-sm">
+                <Utensils className="h-12 w-12" />
               </div>
-              <div>
-                <h1 className="text-4xl md:text-5xl font-bold mb-2">
-                  Restaurant et alimentation
-                </h1>
-                <p className="text-xl text-white/90">
-                  Fast-food, restaurants, boulangeries et spécialités culinaires
-                </p>
-              </div>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              Restaurant et alimentation
+            </h1>
+            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+              Fast-food, restaurants, boulangeries et spécialités culinaires
+            </p>
+            <div className="flex flex-wrap justify-center gap-4 text-sm">
+              <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                {catalogs.length} catalogues disponibles
+              </span>
+              <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                {companies.length} enseignes partenaires
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Filters */}
+      <section className="py-8 bg-muted/50 sticky top-16 z-40 backdrop-blur-sm">
+        <div className="container px-4">
+          <div className="flex flex-col md:flex-row gap-4 items-center">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+              <Input
+                placeholder="Rechercher restaurants..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10"
+              />
             </div>
             
-            <div className="flex flex-wrap gap-4">
-              <div className="flex items-center space-x-2 bg-white/20 rounded-full px-4 py-2">
-                <Clock className="h-4 w-4" />
-                <span>22 catalogues actifs</span>
-              </div>
-              <div className="flex items-center space-x-2 bg-white/20 rounded-full px-4 py-2">
-                <MapPin className="h-4 w-4" />
-                <span>Disponible dans toutes les villes</span>
-              </div>
-              <div className="flex items-center space-x-2 bg-white/20 rounded-full px-4 py-2">
-                <Star className="h-4 w-4" />
-                <span>Offres mises à jour quotidiennement</span>
-              </div>
+            <Select value={selectedAdvertiser} onValueChange={setSelectedAdvertiser}>
+              <SelectTrigger className="w-full md:w-64">
+                <SelectValue placeholder="Toutes les enseignes" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Toutes les enseignes</SelectItem>
+                {companies.map((company) => (
+                  <SelectItem key={company} value={company}>
+                    {company}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Select value={selectedCountry} onValueChange={setSelectedCountry}>
+              <SelectTrigger className="w-full md:w-48">
+                <MapPin className="h-4 w-4 mr-2" />
+                <SelectValue placeholder="Tous les pays" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Tous les pays</SelectItem>
+                {countries.map((country) => (
+                  <SelectItem key={country} value={country}>
+                    {country}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Select value={selectedCity} onValueChange={setSelectedCity}>
+              <SelectTrigger className="w-full md:w-48">
+                <SelectValue placeholder="Toutes les villes" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Toutes les villes</SelectItem>
+                {cities.map((city) => (
+                  <SelectItem key={city} value={city}>
+                    {city}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Select value={sortBy} onValueChange={setSortBy}>
+              <SelectTrigger className="w-full md:w-48">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="newest">Plus récents</SelectItem>
+                <SelectItem value="popular">Plus populaires</SelectItem>
+                <SelectItem value="name">Nom A-Z</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      </section>
+
+      {/* Catalogs Grid */}
+      <section className="py-12">
+        <div className="container px-4">
+          {sortedCatalogs.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {sortedCatalogs.map((catalog) => (
+                <CatalogCard key={catalog.id} {...catalog} />
+              ))}
             </div>
-          </div>
+          ) : (
+            <div className="text-center py-12">
+              <Utensils className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-foreground mb-2">
+                Aucun catalogue trouvé
+              </h3>
+              <p className="text-muted-foreground">
+                Essayez de modifier vos critères de recherche
+              </p>
+            </div>
+          )}
         </div>
       </section>
 
-      {/* Subcategories */}
-      <section className="py-12">
+      {/* Partners Section */}
+      <section className="py-16 bg-muted/50">
         <div className="container px-4">
-          <h2 className="text-2xl font-bold text-foreground mb-6">Sous-catégories</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {subcategories.map((subcategory) => (
-              <Card key={subcategory.name} className="hover:shadow-elegant transition-all duration-300 cursor-pointer">
-                <CardContent className="p-4 text-center">
-                  <h3 className="font-semibold text-foreground mb-2">{subcategory.name}</h3>
-                  <Badge variant="secondary">{subcategory.count} offres</Badge>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-foreground mb-4">
+              Nos Partenaires Restaurant et Alimentation
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Découvrez nos enseignes partenaires pour vos besoins culinaires
+            </p>
           </div>
-        </div>
-      </section>
-
-      {/* Catalogs */}
-      <section className="py-12">
-        <div className="container px-4">
-          <div className="flex justify-between items-center mb-8">
-            <h2 className="text-2xl font-bold text-foreground">Catalogues disponibles</h2>
-            <Button asChild variant="outline">
-              <Link to="/catalogues?category=restaurant-alimentation">
-                Voir tous les catalogues
-              </Link>
-            </Button>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {catalogs.map((catalog) => (
-              <CatalogCard key={catalog.id} {...catalog} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Restaurants */}
-      <section className="py-12 bg-muted/50">
-        <div className="container px-4">
-          <h2 className="text-2xl font-bold text-foreground mb-8">Restaurants partenaires populaires</h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {['KFC Cameroun', 'Pizza Hut', 'Restaurant Le Palais', 'Boulangerie Paul'].map((restaurant) => (
-              <Card key={restaurant} className="hover:shadow-elegant transition-all duration-300">
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full flex items-center justify-center">
-                      <Utensils className="h-6 w-6 text-white" />
-                    </div>
-                    <span>{restaurant}</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground mb-4">
-                    Découvrez les dernières offres et promotions
-                  </p>
-                  <Button variant="outline" className="w-full">
-                    Voir les offres
-                  </Button>
-                </CardContent>
-              </Card>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {companies.map((company) => (
+              <div key={company} className="text-center p-6 bg-background rounded-lg shadow-sm border">
+                <div className="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Utensils className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="font-semibold text-foreground mb-2">{company}</h3>
+                <p className="text-sm text-muted-foreground">
+                  {company === 'KFC Cameroun' && 'Fast-food de qualité'}
+                  {company === 'Boulangerie Paul' && 'Pâtisseries et viennoiseries'}
+                  {company === 'Pizza Hut' && 'Pizzas et cuisine italienne'}
+                  {company === 'Coca-Cola' && 'Boissons et rafraîchissements'}
+                  {company === 'Carrefour Express' && 'Produits alimentaires'}
+                  {company === 'Restaurant Le Palais' && 'Cuisine traditionnelle'}
+                </p>
+              </div>
             ))}
           </div>
         </div>
