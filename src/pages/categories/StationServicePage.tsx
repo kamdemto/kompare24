@@ -9,6 +9,7 @@ const StationServicePage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedAdvertiser, setSelectedAdvertiser] = useState('all');
   const [selectedCountry, setSelectedCountry] = useState('all');
+  const [selectedCity, setSelectedCity] = useState('all');
   const [sortBy, setSortBy] = useState('newest');
 
   // Mock data avec les annonceurs spécifiés
@@ -22,6 +23,7 @@ const StationServicePage = () => {
       viewCount: 2150,
       category: 'Carburants',
       country: 'France',
+      city: 'Paris',
       isNew: true
     },
     {
@@ -32,7 +34,8 @@ const StationServicePage = () => {
       imageUrl: 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?auto=format&fit=crop&w=400&h=600',
       viewCount: 1890,
       category: 'Services Auto',
-      country: 'Belgique'
+      country: 'Belgique',
+      city: 'Bruxelles'
     },
     {
       id: '3',
@@ -42,7 +45,8 @@ const StationServicePage = () => {
       imageUrl: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?auto=format&fit=crop&w=400&h=600',
       viewCount: 1567,
       category: 'Petroleum',
-      country: 'Suisse'
+      country: 'Suisse',
+      city: 'Genève'
     },
     {
       id: '4',
@@ -52,7 +56,8 @@ const StationServicePage = () => {
       imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=400&h=600',
       viewCount: 1234,
       category: 'Entretien Auto',
-      country: 'France'
+      country: 'France',
+      city: 'Lyon'
     },
     {
       id: '5',
@@ -62,7 +67,8 @@ const StationServicePage = () => {
       imageUrl: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=400&h=600',
       viewCount: 987,
       category: 'Boutique',
-      country: 'Belgique'
+      country: 'Belgique',
+      city: 'Anvers'
     },
     {
       id: '6',
@@ -72,19 +78,22 @@ const StationServicePage = () => {
       imageUrl: 'https://images.unsplash.com/photo-1527576539890-dfa815648363?auto=format&fit=crop&w=400&h=600',
       viewCount: 1456,
       category: 'Carburants Premium',
-      country: 'Suisse'
+      country: 'Suisse',
+      city: 'Zurich'
     }
   ];
 
   const advertisers = ['Total Energie', 'Tradex', 'Bocom Petroleum'];
   const countries = ['France', 'Belgique', 'Suisse'];
+  const cities = ['Paris', 'Lyon', 'Bruxelles', 'Anvers', 'Genève', 'Zurich'];
 
   const filteredCatalogs = catalogs.filter(catalog => {
     const matchesSearch = catalog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          catalog.company.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesAdvertiser = selectedAdvertiser === 'all' || catalog.company === selectedAdvertiser;
     const matchesCountry = selectedCountry === 'all' || catalog.country === selectedCountry;
-    return matchesSearch && matchesAdvertiser && matchesCountry;
+    const matchesCity = selectedCity === 'all' || catalog.city === selectedCity;
+    return matchesSearch && matchesAdvertiser && matchesCountry && matchesCity;
   });
 
   const sortedCatalogs = [...filteredCatalogs].sort((a, b) => {
@@ -167,6 +176,20 @@ const StationServicePage = () => {
                 {countries.map((country) => (
                   <SelectItem key={country} value={country}>
                     {country}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Select value={selectedCity} onValueChange={setSelectedCity}>
+              <SelectTrigger className="w-full md:w-48">
+                <SelectValue placeholder="Toutes les villes" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Toutes les villes</SelectItem>
+                {cities.map((city) => (
+                  <SelectItem key={city} value={city}>
+                    {city}
                   </SelectItem>
                 ))}
               </SelectContent>
