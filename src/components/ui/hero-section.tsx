@@ -49,9 +49,11 @@ const HeroSection = () => {
                   <SelectItem value="all">Toutes les catégories</SelectItem>
                   <SelectItem value="supermarches">Supermarchés</SelectItem>
                   <SelectItem value="sport-mode">Sport & Mode</SelectItem>
-                  <SelectItem value="automobile">Automobile</SelectItem>
-                  <SelectItem value="amenagement">Aménagement</SelectItem>
-                  <SelectItem value="sassaye">Sassayé</SelectItem>
+                <SelectItem value="automobile">Automobile</SelectItem>
+                <SelectItem value="amenagement">Aménagement</SelectItem>
+                <SelectItem value="informatique-tech">Informatique & Teché</SelectItem>
+                <SelectItem value="station-service">Station service</SelectItem>
+                <SelectItem value="sassaye">Sassayé</SelectItem>
                 </SelectContent>
               </Select>
 

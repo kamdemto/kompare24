@@ -1,7 +1,7 @@
 import React from 'react';
-import { ShoppingBag, Car, User, Star, ArrowRight, Briefcase, Home as HomeIcon } from 'lucide-react';
+import { ShoppingBag, Car, User, Star, ArrowRight, Briefcase, Home as HomeIcon, Monitor, Fuel } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import Autoplay from 'embla-carousel-autoplay';
+import { useCallback } from 'react';
 import catalogSupermarket from '@/assets/catalog-supermarket-1.jpg';
 import catalogSport from '@/assets/catalog-sport-9-16.jpg';
 import catalogAuto from '@/assets/catalog-auto-1.jpg';
@@ -48,6 +48,22 @@ const Home = () => {
       icon: HomeIcon,
       catalogCount: 18,
       gradient: 'bg-gradient-to-br from-orange-500 to-red-600'
+    },
+    {
+      title: 'Informatique & Teché',
+      description: 'Ordinateurs, smartphones, accessoires tech et solutions informatiques',
+      href: '/categories/informatique-tech',
+      icon: Monitor,
+      catalogCount: 24,
+      gradient: 'bg-gradient-to-br from-purple-500 to-indigo-600'
+    },
+    {
+      title: 'Station service',
+      description: 'Carburants, services auto et boutiques de stations-service',
+      href: '/categories/station-service',
+      icon: Fuel,
+      catalogCount: 12,
+      gradient: 'bg-gradient-to-br from-red-500 to-orange-600'
     },
     {
       title: 'Sassayé',
@@ -210,11 +226,6 @@ const Home = () => {
           <div className="relative">
             <Carousel 
               className="w-full"
-              plugins={[
-                Autoplay({
-                  delay: 3000,
-                })
-              ]}
               opts={{
                 align: "start",
                 loop: true,
@@ -261,11 +272,6 @@ const Home = () => {
           <div className="relative">
             <Carousel 
               className="w-full"
-              plugins={[
-                Autoplay({
-                  delay: 4000,
-                })
-              ]}
               opts={{
                 align: "start",
                 loop: true,
@@ -313,11 +319,6 @@ const Home = () => {
           <div className="relative">
             <Carousel 
               className="w-full"
-              plugins={[
-                Autoplay({
-                  delay: 5000,
-                })
-              ]}
               opts={{
                 align: "start",
                 loop: true,

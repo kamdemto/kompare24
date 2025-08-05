@@ -9,6 +9,8 @@ import SupermarchesPage from "./pages/categories/SupermarchesPage";
 import SportModePage from "./pages/categories/SportModePage";
 import AutomobilePage from "./pages/categories/AutomobilePage";
 import AmenagementPage from "./pages/categories/AmenagementPage";
+import InformatiqueTechPage from "./pages/categories/InformatiqueTechPage";
+import StationServicePage from "./pages/categories/StationServicePage";
 import SassayePage from "./pages/categories/SassayePage";
 import CommentCaMarchePage from "./pages/CommentCaMarchePage";
 import AProposPage from "./pages/AProposPage";
@@ -39,9 +41,11 @@ const App = () => (
               <Route path="/catalogues" element={<CataloguesPage />} />
               <Route path="/categories/supermarches" element={<SupermarchesPage />} />
               <Route path="/categories/sport-mode" element={<SportModePage />} />
-              <Route path="/categories/automobile" element={<AutomobilePage />} />
-              <Route path="/categories/amenagement" element={<AmenagementPage />} />
-              <Route path="/categories/sassaye" element={<SassayePage />} />
+            <Route path="/categories/automobile" element={<AutomobilePage />} />
+            <Route path="/categories/amenagement" element={<AmenagementPage />} />
+            <Route path="/categories/informatique-tech" element={<InformatiqueTechPage />} />
+            <Route path="/categories/station-service" element={<StationServicePage />} />
+            <Route path="/categories/sassaye" element={<SassayePage />} />
               <Route path="/comment-ca-marche" element={<CommentCaMarchePage />} />
               <Route path="/a-propos" element={<AProposPage />} />
               <Route path="/contact" element={<ContactPage />} />
