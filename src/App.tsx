@@ -23,6 +23,8 @@ import ConnexionPage from "./pages/ConnexionPage";
 import DashboardPage from "./pages/DashboardPage";
 import AdminPage from "./pages/AdminPage";
 import AdvertiserDetailPage from "./pages/AdvertiserDetailPage";
+import RestaurantAlimentationPage from "./pages/categories/RestaurantAlimentationPage";
+import SanteBeautePage from "./pages/categories/SanteBeautePage";
 import Navigation from "./components/ui/navigation";
 import Footer from "./components/ui/footer";
 import NotFound from "./pages/NotFound";
@@ -48,6 +50,8 @@ const App = () => (
             <Route path="/categories/informatique-tech" element={<InformatiqueTechPage />} />
             <Route path="/categories/station-service" element={<StationServicePage />} />
             <Route path="/categories/sassaye" element={<SassayePage />} />
+            <Route path="/categories/restaurant-alimentation" element={<RestaurantAlimentationPage />} />
+            <Route path="/categories/sante-beaute" element={<SanteBeautePage />} />
               <Route path="/comment-ca-marche" element={<CommentCaMarchePage />} />
               <Route path="/a-propos" element={<AProposPage />} />
               <Route path="/contact" element={<ContactPage />} />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShoppingBag, Car, User, Star, ArrowRight, Briefcase, Home as HomeIcon, Monitor, Fuel } from 'lucide-react';
+import { ShoppingBag, Car, User, Star, ArrowRight, Briefcase, Home as HomeIcon, Monitor, Fuel, UtensilsCrossed, Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCallback } from 'react';
 import catalogSupermarket from '@/assets/catalog-supermarket-1.jpg';
@@ -64,6 +64,22 @@ const Home = () => {
       icon: Fuel,
       catalogCount: 12,
       gradient: 'bg-gradient-to-br from-red-500 to-orange-600'
+    },
+    {
+      title: 'Restaurant et alimentation',
+      description: 'Fast-food, restaurants, boulangeries et spécialités culinaires',
+      href: '/categories/restaurant-alimentation',
+      icon: UtensilsCrossed,
+      catalogCount: 22,
+      gradient: 'bg-gradient-to-br from-yellow-500 to-orange-500'
+    },
+    {
+      title: 'Santé & beauté',
+      description: 'Cosmétiques, parfums, soins corporels et produits de bien-être',
+      href: '/categories/sante-beaute',
+      icon: Heart,
+      catalogCount: 19,
+      gradient: 'bg-gradient-to-br from-pink-500 to-rose-600'
     },
     {
       title: 'Sassayé',
