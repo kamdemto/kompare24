@@ -34,6 +34,8 @@ const mockCategories = [
   { id: 3, name: 'Automobile', subcategories: ['Pièces détachées', 'Accessoires', 'Entretien'] },
   { id: 4, name: 'Informatique & Tech', subcategories: ['Ordinateurs', 'Smartphones', 'Accessoires'] },
   { id: 5, name: 'Station service', subcategories: ['Carburants', 'Boutique', 'Services'] },
+  { id: 6, name: 'Restaurant et alimentation', subcategories: ['Fast-food', 'Restaurants', 'Boulangeries', 'Boissons', 'Snacks'] },
+  { id: 7, name: 'Santé & beauté', subcategories: ['Cosmétiques', 'Parfums', 'Soins corporels', 'Pharmacie', 'Bien-être'] },
 ];
 
 // Mock advertiser details with stats
