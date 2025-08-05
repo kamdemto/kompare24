@@ -1,11 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Check, Star, Users, BarChart3, Zap, Crown, Shield, Briefcase, ArrowRight, Gift } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { AdvertiserForm, AdvertiserFormData } from '@/components/ui/advertiser-form';
+import { useToast } from '@/hooks/use-toast';
 
 const DevenirAnnonceurPage = () => {
+  const { toast } = useToast();
+  const [showForm, setShowForm] = useState(false);
+
+  const handleFormSubmit = async (data: AdvertiserFormData) => {
+    // Simuler l'envoi des données
+    console.log('Données du formulaire:', data);
+    
+    toast({
+      title: "Demande envoyée avec succès !",
+      description: "Nous examinerons votre demande et vous contacterons sous 48h.",
+    });
+    
+    setShowForm(false);
+  };
+
   const freeFeatures = [
     'Publication de catalogues illimitée',
     'Visibilité dans votre secteur d\'activité',
@@ -71,6 +88,19 @@ const DevenirAnnonceurPage = () => {
       description: 'Analysez l\'impact de vos promotions avec nos outils'
     }
   ];
+
+  if (showForm) {
+    return (
+      <div className="min-h-screen bg-gradient-subtle py-16">
+        <div className="container px-4">
+          <AdvertiserForm 
+            onSubmit={handleFormSubmit}
+            title="Rejoignez Kompar24"
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -168,7 +198,10 @@ const DevenirAnnonceurPage = () => {
                     ))}
                   </div>
                   
-                  <Button className="w-full bg-green-500 hover:bg-green-600 text-white">
+                  <Button 
+                    className="w-full bg-green-500 hover:bg-green-600 text-white"
+                    onClick={() => setShowForm(true)}
+                  >
                     <Briefcase className="w-4 h-4 mr-2" />
                     Commencer Gratuitement
                   </Button>
@@ -205,7 +238,10 @@ const DevenirAnnonceurPage = () => {
                     ))}
                   </div>
                   
-                  <Button className="w-full bg-gradient-secondary hover:bg-secondary/90">
+                  <Button 
+                    className="w-full bg-gradient-secondary hover:bg-secondary/90"
+                    onClick={() => setShowForm(true)}
+                  >
                     <Crown className="w-4 h-4 mr-2" />
                     Devenir Premium
                   </Button>

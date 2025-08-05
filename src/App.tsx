@@ -22,6 +22,7 @@ import EntreprisesPage from "./pages/EntreprisesPage";
 import ConnexionPage from "./pages/ConnexionPage";
 import DashboardPage from "./pages/DashboardPage";
 import AdminPage from "./pages/AdminPage";
+import AdvertiserDetailPage from "./pages/AdvertiserDetailPage";
 import Navigation from "./components/ui/navigation";
 import Footer from "./components/ui/footer";
 import NotFound from "./pages/NotFound";
@@ -57,6 +58,7 @@ const App = () => (
               <Route path="/connexion" element={<ConnexionPage />} />
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/admin" element={<AdminPage />} />
+              <Route path="/admin/advertiser/:id" element={<AdvertiserDetailPage />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

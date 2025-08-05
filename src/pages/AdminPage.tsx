@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
@@ -9,7 +10,9 @@ import { Label } from '../components/ui/label';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
-import { Users, Store, BookOpen, Settings, Plus, Edit, Trash2, Crown, Eye, BarChart3 } from 'lucide-react';
+import { Users, Store, BookOpen, Settings, Plus, Edit, Trash2, Crown, Eye, BarChart3, UserPlus } from 'lucide-react';
+import { AdvertiserForm, AdvertiserFormData } from '../components/ui/advertiser-form';
+import { useToast } from '../hooks/use-toast';
 
 // Mock data
 const mockUsers = [
@@ -56,6 +59,8 @@ const getAdvertiserDetails = (userId: number) => {
 };
 
 const AdminPage = () => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
   const [users, setUsers] = useState(mockUsers);
   const [catalogs, setCatalogs] = useState(mockCatalogs);
   const [categories, setCategories] = useState(mockCategories);
@@ -107,6 +112,26 @@ const AdminPage = () => {
       setCategories([...categories, newCat]);
       setNewCategory({ name: '', subcategories: [] });
     }
+  };
+
+  const handleAddAdvertiser = async (data: AdvertiserFormData) => {
+    // Simuler l'ajout d'un nouvel annonceur
+    const newUser = {
+      id: users.length + 1,
+      name: data.companyName,
+      email: data.email,
+      type: 'annonceur' as const,
+      status: 'active' as const,
+      premium: data.premium || false,
+      catalogs: 0
+    };
+    
+    setUsers([...users, newUser]);
+    
+    toast({
+      title: "Annonceur ajouté avec succès !",
+      description: `Le compte de ${data.companyName} a été créé.`,
+    });
   };
 
   return (
@@ -169,8 +194,26 @@ const AdminPage = () => {
 
           <TabsContent value="users">
             <Card>
-              <CardHeader>
+              <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle>Gestion des Utilisateurs</CardTitle>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button>
+                      <UserPlus className="h-4 w-4 mr-2" />
+                      Ajouter un annonceur
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                    <DialogHeader>
+                      <DialogTitle>Créer un nouveau compte annonceur</DialogTitle>
+                    </DialogHeader>
+                    <AdvertiserForm 
+                      onSubmit={handleAddAdvertiser}
+                      isAdmin={true}
+                      title="Créer un compte annonceur"
+                    />
+                  </DialogContent>
+                </Dialog>
               </CardHeader>
               <CardContent>
                 <Table>
@@ -215,136 +258,14 @@ const AdminPage = () => {
                          <TableCell>
                            <div className="flex space-x-2">
                              {user.type === 'annonceur' && (
-                               <Dialog>
-                                 <DialogTrigger asChild>
-                                   <Button size="sm" variant="outline">
-                                     <Eye className="h-4 w-4 mr-2" />
-                                     Voir détails
-                                   </Button>
-                                 </DialogTrigger>
-                                 <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
-                                   <DialogHeader>
-                                     <DialogTitle>Détails de l'annonceur - {user.name}</DialogTitle>
-                                   </DialogHeader>
-                                   
-                                   {(() => {
-                                     const details = getAdvertiserDetails(user.id);
-                                     if (!details) return null;
-                                     
-                                     return (
-                                       <div className="space-y-6">
-                                         {/* Stats Overview */}
-                                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                           <Card>
-                                             <CardContent className="p-4">
-                                               <div className="text-center">
-                                                 <div className="text-2xl font-bold text-primary">{details.stats.totalViews}</div>
-                                                 <div className="text-sm text-muted-foreground">Vues totales</div>
-                                               </div>
-                                             </CardContent>
-                                           </Card>
-                                           <Card>
-                                             <CardContent className="p-4">
-                                               <div className="text-center">
-                                                 <div className="text-2xl font-bold text-primary">{details.stats.avgViews}</div>
-                                                 <div className="text-sm text-muted-foreground">Vues moyennes</div>
-                                               </div>
-                                             </CardContent>
-                                           </Card>
-                                           <Card>
-                                             <CardContent className="p-4">
-                                               <div className="text-center">
-                                                 <div className="text-2xl font-bold text-primary">{details.stats.clickThroughRate}</div>
-                                                 <div className="text-sm text-muted-foreground">Taux de clic</div>
-                                               </div>
-                                             </CardContent>
-                                           </Card>
-                                           <Card>
-                                             <CardContent className="p-4">
-                                               <div className="text-center">
-                                                 <div className="text-2xl font-bold text-primary">{details.stats.conversionRate}</div>
-                                                 <div className="text-sm text-muted-foreground">Taux conversion</div>
-                                               </div>
-                                             </CardContent>
-                                           </Card>
-                                         </div>
-
-                                         {/* Advertiser Info */}
-                                         <Card>
-                                           <CardHeader>
-                                             <CardTitle className="flex items-center gap-2">
-                                               <Store className="h-5 w-5" />
-                                               Informations de l'annonceur
-                                             </CardTitle>
-                                           </CardHeader>
-                                           <CardContent>
-                                             <div className="grid grid-cols-2 gap-4">
-                                               <div>
-                                                 <Label className="text-sm font-medium">Email</Label>
-                                                 <p className="text-sm text-muted-foreground">{details.email}</p>
-                                               </div>
-                                               <div>
-                                                 <Label className="text-sm font-medium">Statut</Label>
-                                                 <div className="flex items-center gap-2">
-                                                   <Badge variant={details.status === 'active' ? 'default' : 'destructive'}>
-                                                     {details.status}
-                                                   </Badge>
-                                                   {details.premium && <Badge variant="secondary"><Crown className="h-3 w-3 mr-1" />Premium</Badge>}
-                                                 </div>
-                                               </div>
-                                               <div>
-                                                 <Label className="text-sm font-medium">Dernière activité</Label>
-                                                 <p className="text-sm text-muted-foreground">{details.stats.lastActivity}</p>
-                                               </div>
-                                               <div>
-                                                 <Label className="text-sm font-medium">Catalogues actifs</Label>
-                                                 <p className="text-sm text-muted-foreground">{details.stats.activePromos}</p>
-                                               </div>
-                                             </div>
-                                           </CardContent>
-                                         </Card>
-
-                                         {/* Catalogs List */}
-                                         <Card>
-                                           <CardHeader>
-                                             <CardTitle className="flex items-center gap-2">
-                                               <BookOpen className="h-5 w-5" />
-                                               Catalogues ({details.catalogs.length})
-                                             </CardTitle>
-                                           </CardHeader>
-                                           <CardContent>
-                                             {details.catalogs.length > 0 ? (
-                                               <div className="space-y-3">
-                                                 {details.catalogs.map((catalog) => (
-                                                   <div key={catalog.id} className="flex items-center justify-between p-3 border rounded-lg">
-                                                     <div>
-                                                       <h4 className="font-medium">{catalog.title}</h4>
-                                                       <div className="flex items-center gap-2 mt-1">
-                                                         <Badge variant="outline">{catalog.category}</Badge>
-                                                         <Badge variant={catalog.status === 'active' ? 'default' : 'destructive'}>
-                                                           {catalog.status}
-                                                         </Badge>
-                                                       </div>
-                                                     </div>
-                                                     <div className="text-right">
-                                                       <div className="flex items-center gap-2">
-                                                         <BarChart3 className="h-4 w-4 text-muted-foreground" />
-                                                         <span className="font-medium">{catalog.views} vues</span>
-                                                       </div>
-                                                     </div>
-                                                   </div>
-                                                 ))}
-                                               </div>
-                                             ) : (
-                                               <p className="text-muted-foreground text-center py-4">Aucun catalogue trouvé</p>
-                                             )}
-                                           </CardContent>
-                                         </Card>
-                                       </div>
-                                     );
-                                   })()}
-                                 </DialogContent>
-                               </Dialog>
+                               <Button 
+                                 size="sm" 
+                                 variant="outline"
+                                 onClick={() => navigate(`/admin/advertiser/${user.id}`)}
+                               >
+                                 <Eye className="h-4 w-4 mr-2" />
+                                 Voir détails
+                               </Button>
                              )}
                              <Button
                                size="sm"
