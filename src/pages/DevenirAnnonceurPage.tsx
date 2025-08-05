@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Check, Star, Users, BarChart3, Zap, Crown, Shield, Briefcase, ArrowRight, Gift } from 'lucide-react';
+import { Check, Star, Users, BarChart3, Zap, Crown, Shield, Briefcase, ArrowRight, Gift, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -93,6 +93,14 @@ const DevenirAnnonceurPage = () => {
     return (
       <div className="min-h-screen bg-gradient-subtle py-16">
         <div className="container px-4">
+          <Button 
+            onClick={() => setShowForm(false)} 
+            variant="outline" 
+            className="mb-6"
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Retour
+          </Button>
           <AdvertiserForm 
             onSubmit={handleFormSubmit}
             title="Rejoignez Kompar24"
