@@ -10,7 +10,7 @@ import { Label } from '../components/ui/label';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
-import { Users, Store, BookOpen, Settings, Plus, Edit, Trash2, Crown, Eye, BarChart3, UserPlus } from 'lucide-react';
+import { Users, Store, BookOpen, Settings, Plus, Edit, Trash2, Crown, Eye, BarChart3, UserPlus, Search } from 'lucide-react';
 import { AdvertiserForm, AdvertiserFormData } from '../components/ui/advertiser-form';
 import { useToast } from '../hooks/use-toast';
 
@@ -66,6 +66,11 @@ const AdminPage = () => {
   const [categories, setCategories] = useState(mockCategories);
   const [newCategory, setNewCategory] = useState({ name: '', subcategories: [] });
   const [newSubcategory, setNewSubcategory] = useState('');
+  
+  // Search states
+  const [userSearch, setUserSearch] = useState('');
+  const [catalogSearch, setCatalogSearch] = useState('');
+  const [categorySearch, setCategorySearch] = useState('');
 
   const toggleUserStatus = (userId: number) => {
     setUsers(users.map(user => 
@@ -133,6 +138,24 @@ const AdminPage = () => {
       description: `Le compte de ${data.companyName} a été créé.`,
     });
   };
+
+  // Filter functions
+  const filteredUsers = users.filter(user => 
+    user.name.toLowerCase().includes(userSearch.toLowerCase()) ||
+    user.email.toLowerCase().includes(userSearch.toLowerCase()) ||
+    user.type.toLowerCase().includes(userSearch.toLowerCase())
+  );
+
+  const filteredCatalogs = catalogs.filter(catalog =>
+    catalog.title.toLowerCase().includes(catalogSearch.toLowerCase()) ||
+    catalog.advertiser.toLowerCase().includes(catalogSearch.toLowerCase()) ||
+    catalog.category.toLowerCase().includes(catalogSearch.toLowerCase())
+  );
+
+  const filteredCategories = categories.filter(category =>
+    category.name.toLowerCase().includes(categorySearch.toLowerCase()) ||
+    category.subcategories.some(sub => sub.toLowerCase().includes(categorySearch.toLowerCase()))
+  );
 
   return (
     <div className="min-h-screen bg-gradient-subtle p-6">
@@ -216,6 +239,23 @@ const AdminPage = () => {
                 </Dialog>
               </CardHeader>
               <CardContent>
+                {/* Search Field */}
+                <div className="mb-6">
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                    <Input
+                      placeholder="Rechercher par nom, email ou type..."
+                      value={userSearch}
+                      onChange={(e) => setUserSearch(e.target.value)}
+                      className="pl-10"
+                    />
+                  </div>
+                  {userSearch && (
+                    <p className="text-sm text-muted-foreground mt-2">
+                      {filteredUsers.length} résultat(s) trouvé(s)
+                    </p>
+                  )}
+                </div>
                 <Table>
                   <TableHeader>
                     <TableRow>
@@ -229,7 +269,7 @@ const AdminPage = () => {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {users.map((user) => (
+                    {filteredUsers.map((user) => (
                       <TableRow key={user.id}>
                         <TableCell className="font-medium">{user.name}</TableCell>
                         <TableCell>{user.email}</TableCell>
@@ -290,6 +330,23 @@ const AdminPage = () => {
                 <CardTitle>Gestion des Catalogues</CardTitle>
               </CardHeader>
               <CardContent>
+                {/* Search Field */}
+                <div className="mb-6">
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                    <Input
+                      placeholder="Rechercher par titre, annonceur ou catégorie..."
+                      value={catalogSearch}
+                      onChange={(e) => setCatalogSearch(e.target.value)}
+                      className="pl-10"
+                    />
+                  </div>
+                  {catalogSearch && (
+                    <p className="text-sm text-muted-foreground mt-2">
+                      {filteredCatalogs.length} résultat(s) trouvé(s)
+                    </p>
+                  )}
+                </div>
                 <Table>
                   <TableHeader>
                     <TableRow>
@@ -302,7 +359,7 @@ const AdminPage = () => {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {catalogs.map((catalog) => (
+                    {filteredCatalogs.map((catalog) => (
                       <TableRow key={catalog.id}>
                         <TableCell className="font-medium">{catalog.title}</TableCell>
                         <TableCell>{catalog.advertiser}</TableCell>
@@ -365,8 +422,25 @@ const AdminPage = () => {
                   <CardTitle>Catégories Existantes</CardTitle>
                 </CardHeader>
                 <CardContent>
+                  {/* Search Field */}
+                  <div className="mb-6">
+                    <div className="relative">
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                      <Input
+                        placeholder="Rechercher une catégorie ou sous-catégorie..."
+                        value={categorySearch}
+                        onChange={(e) => setCategorySearch(e.target.value)}
+                        className="pl-10"
+                      />
+                    </div>
+                    {categorySearch && (
+                      <p className="text-sm text-muted-foreground mt-2">
+                        {filteredCategories.length} résultat(s) trouvé(s)
+                      </p>
+                    )}
+                  </div>
                   <div className="grid gap-4">
-                    {categories.map((category) => (
+                    {filteredCategories.map((category) => (
                       <div key={category.id} className="border rounded-lg p-4">
                         <div className="flex items-center justify-between mb-3">
                           <h3 className="font-semibold">{category.name}</h3>
