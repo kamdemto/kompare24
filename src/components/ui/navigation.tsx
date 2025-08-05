@@ -48,17 +48,23 @@ const Navigation = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-4">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                to={item.href}
-                className={`text-sm font-medium transition-colors hover:text-primary ${
-                  location.pathname === item.href ? 'text-primary' : 'text-muted-foreground'
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {/* Accueil et Nos catalogues */}
+            <Link
+              to="/"
+              className={`text-sm font-medium transition-colors hover:text-primary ${
+                location.pathname === '/' ? 'text-primary' : 'text-muted-foreground'
+              }`}
+            >
+              Accueil
+            </Link>
+            <Link
+              to="/catalogues"
+              className={`text-sm font-medium transition-colors hover:text-primary ${
+                location.pathname === '/catalogues' ? 'text-primary' : 'text-muted-foreground'
+              }`}
+            >
+              Nos catalogues
+            </Link>
             
             {/* Categories Dropdown */}
             <div className="relative group">
@@ -78,6 +84,16 @@ const Navigation = () => {
                 ))}
               </div>
             </div>
+
+            {/* Nos références */}
+            <Link
+              to="/entreprises"
+              className={`text-sm font-medium transition-colors hover:text-primary ${
+                location.pathname === '/entreprises' ? 'text-primary' : 'text-muted-foreground'
+              }`}
+            >
+              Nos références
+            </Link>
           </nav>
 
           {/* CTA */}
