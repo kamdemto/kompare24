@@ -59,7 +59,7 @@ const Home = () => {
       gradient: 'bg-gradient-to-br from-orange-500 to-red-600'
     },
     {
-      title: 'Informatique & Teché',
+      title: 'Informatique & Tech',
       description: 'Ordinateurs, smartphones, accessoires tech et solutions informatiques',
       href: '/categories/informatique-tech',
       icon: Monitor,
