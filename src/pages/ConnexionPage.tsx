@@ -9,8 +9,19 @@ import { LogIn, Briefcase } from 'lucide-react';
 const ConnexionPage = () => {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // Redirect vers le dashboard pour le MVP
-    window.location.href = '/dashboard';
+    
+    // Get form data
+    const formData = new FormData(e.target as HTMLFormElement);
+    const email = formData.get('email') as string;
+    
+    // Simple MVP logic to determine user type based on email
+    if (email?.includes('admin@kompar24.com')) {
+      // Redirect to admin page
+      window.location.href = '/admin';
+    } else {
+      // Redirect to advertiser dashboard
+      window.location.href = '/dashboard';
+    }
   };
 
   return (
@@ -34,6 +45,7 @@ const ConnexionPage = () => {
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
+                  name="email"
                   type="email"
                   placeholder="votre-email@entreprise.com"
                   required
@@ -44,10 +56,17 @@ const ConnexionPage = () => {
                 <Label htmlFor="password">Mot de passe</Label>
                 <Input
                   id="password"
+                  name="password"
                   type="password"
                   placeholder="••••••••"
                   required
                 />
+              </div>
+              
+              <div className="text-xs text-muted-foreground p-3 bg-muted/50 rounded-lg">
+                <p><strong>Comptes de test :</strong></p>
+                <p>Admin: admin@kompar24.com</p>
+                <p>Annonceur: contact@superu-sassaye.com</p>
               </div>
 
               <Button type="submit" className="w-full bg-gradient-primary">
