@@ -11,7 +11,7 @@ const Navigation = () => {
 
   const navItems = [
     { label: 'Accueil', href: '/', icon: Home },
-    { label: 'Catalogues', href: '/catalogues', icon: ShoppingBag },
+    { label: 'Nos Catégories', href: '/catalogues', icon: ShoppingBag },
     { label: 'Nos références', href: '/entreprises', icon: Briefcase },
   ];
 
@@ -59,25 +59,6 @@ const Navigation = () => {
                 {item.label}
               </Link>
             ))}
-            
-            {/* Categories Dropdown */}
-            <div className="relative group">
-              <Button variant="ghost" className="text-sm font-medium">
-                Nos Catégories
-              </Button>
-              <div className="absolute top-full left-0 mt-2 w-48 bg-popover border rounded-lg shadow-elegant opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                {categories.map((category) => (
-                  <Link
-                    key={category.href}
-                    to={category.href}
-                    className="flex items-center space-x-2 px-4 py-3 text-sm hover:bg-muted transition-colors"
-                  >
-                    <category.icon className="h-4 w-4" />
-                    <span>{category.label}</span>
-                  </Link>
-                ))}
-              </div>
-            </div>
           </nav>
 
           {/* CTA */}
