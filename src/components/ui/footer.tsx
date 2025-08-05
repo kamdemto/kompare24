@@ -5,9 +5,7 @@ import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin } from 'luc
 const Footer = () => {
   const allLinks = [
     { label: 'Accueil', href: '/' },
-    { label: 'Supermarchés', href: '/categories/supermarches' },
-    { label: 'Sport & Mode', href: '/categories/sport-mode' },
-    { label: 'Automobile', href: '/categories/automobile' },
+    { label: 'Catégories', href: '/catalogues' },
     { label: 'Sassayé', href: '/categories/sassaye' },
     { label: 'Comment ça marche', href: '/comment-ca-marche' },
     { label: 'Kompare24 en bref', href: '/a-propos' },
