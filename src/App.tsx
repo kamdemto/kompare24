@@ -27,6 +27,7 @@ import RestaurantAlimentationPage from "./pages/categories/RestaurantAlimentatio
 import SanteBeautePage from "./pages/categories/SanteBeautePage";
 import Navigation from "./components/ui/navigation";
 import Footer from "./components/ui/footer";
+import TopBar from "./components/ui/top-bar";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,6 +39,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <div className="min-h-screen flex flex-col">
+          <TopBar />
           <Navigation />
           <main className="flex-1 pb-16 lg:pb-0">
             <Routes>
