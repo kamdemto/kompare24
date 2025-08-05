@@ -103,7 +103,7 @@ const InformatiqueTechPage = () => {
               </div>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Informatique & Teché
+              Informatique & Tech
             </h1>
             <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
               Découvrez les meilleures offres tech : ordinateurs, smartphones, accessoires et solutions informatiques
